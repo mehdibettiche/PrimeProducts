@@ -1,0 +1,83 @@
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+/*html { overflow-y: hidden;overflow-x: hidden; };*/
+
+/*#block1, #block2 
+{
+    text-align: center;
+    float: left;
+}
+
+.block1 
+{
+    background: #eb5255;
+    width: 0vw;
+    height: 100vw;
+    
+}
+
+.block2
+{
+    background: #efefef;
+    width: 100vw; 
+    height: 100vw;
+}
+
+#title_pfe
+{
+    padding-top: 300px;
+}
+
+.h3 {
+    color: #fefeff;
+    font-size: 24px;
+    margin: 0 0 40px;
+    text-align: center;
+    font-size: 25px;
+    line-height: 1.5;
+    font-weight: 200;
+    margin-bottom: 20px;
+    font-family: "proxima-nova", sans-serif;
+    letter-spacing: 1px;
+}
+
+.button_accueil {
+  padding: 15px 25px;
+  font-size: 24px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  background-color: transparent;
+  border: 2px;
+  border-style: solid;
+  border-radius: 25px;
+  border-color: #fff;
+  transition: 1s;
+}
+
+.button_accueil:hover {
+    background-color: #eff5ff;  
+    color: #eb5255;
+}
+
+.button_accueil:active {
+  background-color: #eff5ff;
+  border-color: #eb5255;
+  transform: translateY(4px);
+}*/
+
+
+
+
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+	font-size: inherit;
+}

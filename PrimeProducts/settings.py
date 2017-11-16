@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 """
 
 import os
-
+#import normpath
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -25,11 +25,23 @@ SECRET_KEY = 't^&@vc472upp&z^*3_+iqb)p04nkse@3_-dv)m7+vu%#7m)e)9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'www.fouille-opinions.com',
+    'localhost',
+    '127.0.0.1',
+    ]
 
+#TEMPLATE_DIRS = (
+#    '/Users/MehdiBettiche/Documents/PrimeProducts/PrimeProductsWebsite/Template/PrimeProductsWebsite/' ,
+#)
+#TEMPLATE_DIRS = ( os.path.join(BASE_DIR), )
+#TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'templates'),)
 
 # Application definition
-
+#STATICFILES_FINDERS = [
+#    'django.contrib.staticfiles.finders.FileSystemFinder',
+#    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+#]
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -37,6 +49,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'PrimeProductsWebsite',
+    'PrimeProducts',
 ]
 
 MIDDLEWARE = [
@@ -117,4 +131,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/static/'   # Qui devrait déjà être la configuration par défaut
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+#STATIC_ROOT = normpath(join(BASE_DIR, 'static'))
+
+STATICFILES_DIRS = (
+    #os.path.join(BASE_DIR, 'static'),
+    BASE_DIR + '/PrimeProductsWebsite/static/',
+    #os.path.normpath(os.path.join(BASE_DIR, 'static')),
+    #normpath(join(BASE_DIR, 'upload')),
+)
+#print("base dir path", BASE_DIR + '/PrimeProductsWebsite/static/')
+#print("base dir path2", os.path.join(BASE_DIR, '/PrimeProductsWebsite/static/'))

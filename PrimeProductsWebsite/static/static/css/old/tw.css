@@ -1,0 +1,292 @@
+.overlay {
+    background: #e9e9e9;  /*<- I left your 'gray' background*/
+    display: none;        /*<- Not displayed by default*/
+    position: absolute;   /*<- This and the following properties will*/
+    top: 0;                 /* make the overlay, the element will expand*/
+    right: 0;                /*so as to cover the whole body of the page*/
+    bottom: 0;
+    left: 0;
+    padding-top: 250px;
+    padding-left: 580px;
+    opacity: 0.7;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 3px 10px 0 rgba(0,0,0,0.19);
+
+}
+
+.res_tweet_div {
+    float: none;
+    display: table-cell;
+    vertical-align: middle;
+    width: 100%;
+    /*background-color: red;*/
+    overflow: hidden;
+}
+
+.list_res_tweets {
+        /*display: inline-block; inline-block*/
+        list-style-type: none;
+        margin-top: 8px;
+        margin-left: 10px;
+        padding-left: 10px;
+        padding-top: 3px;
+        padding-right: 0px;
+        border: 1px;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 3px 10px 0 rgba(0,0,0,0.19);
+        /*background-image: url(images/img_plus.png);*/
+        /*font-size: 24px;*/
+        height: 430px;
+        width: 100%;
+        overflow-y: scroll;
+        overflow-x:hidden;
+        background-color: #f9f9f9;
+}
+
+.list_tweets {
+    list-style-type: none;
+    width: 296px;
+    height: 430px;
+    border: 0px;
+    padding-left: 0px;
+    padding-top: 3px;
+    margin-top: 8px;
+    overflow-y: scroll;
+    overflow-x:hidden;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 3px 10px 0 rgba(0,0,0,0.19);
+
+}
+
+/*.list_item {
+   display: block;
+   width: 100%;
+   height: 10px;
+   text-align: left;
+   color: black;
+}
+
+.list_item:hover {
+    background-color: #f0f0f0;
+}
+.list_item:focus {
+  background: #f0f0f0;
+  outline: 0;
+}
+*/
+
+.li_tweets:hover {
+    background-color: #f0f0f0;
+}
+
+.li_tweets:focus {
+  background: #f0f0f0;
+  outline: 0;
+}
+
+.li_tweets {
+    display: block; /*inline-block old block*/ 
+    margin-top: 0px;
+    margin-bottom: 0px;
+
+    /**/
+     width: 100%;
+     height: 30px;
+     text-align: left;
+     color: black;
+     padding-left: 5px;
+}
+
+
+
+
+
+.in {
+    float: none;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.text_area {
+        display: inline-block;
+        border: 1px solid #93228D;
+        margin-top: 16px;
+        font-size: 12px;
+        box-shadow: 0 1px 2px 0 rgba(0,0,0,0.2), 0 1.5px 5px 0 rgba(0,0,0,0.19);
+        margin-right: 10px;
+        resize: none;
+        width: 235px;
+        height: 20px;
+
+}
+
+.add:hover, .remove:hover, .search:hover, .stop:hover, .save:hover {
+    background-color: #93228D; /* Green */
+    color: white;
+}
+
+.add {
+        display: inline-block;
+        margin-top: 16px;
+        border: none;
+
+    background-color: white; 
+    color: black; 
+    border: 1px solid #93228D;
+    padding: 0;
+
+        text-align: center;
+        text-decoration: none;
+        box-shadow: 0 1px 2px 0 rgba(0,0,0,0.2), 0 1.5px 5px 0 rgba(0,0,0,0.19);
+        /*background-image: url(images/img_plus.png);*/
+        /*font-size: 24px;*/
+        height: 20px;
+        width: 20px;
+}
+
+.remove {
+        display: inline-block;
+        margin-top: 16px;
+        margin-left: 10px;
+        border: none;
+    background-color: white; 
+    color: black; 
+    border: 1px solid #93228D;
+    padding: 0;        text-align: center;
+        text-decoration: none;
+        box-shadow: 0 1px 2px 0 rgba(0,0,0,0.2), 0 1.5px 5px 0 rgba(0,0,0,0.19);
+        /*background-image: url(images/img_plus.png);*/
+        /*font-size: 24px;*/
+        height: 20px;
+        width: 20px;
+}
+
+
+
+.search {
+        display: inline-block; /*inline-block*/
+        margin-top: 16px;
+        margin-left: 10px;
+        border: none;
+background-color: white; 
+    color: black; 
+    border: 1px solid #93228D;
+    padding: 0;        text-align: center;
+        text-decoration: none;
+        box-shadow: 0 1px 2px 0 rgba(0,0,0,0.2), 0 1.5px 5px 0 rgba(0,0,0,0.19);
+        /*background-image: url(images/img_plus.png);*/
+        /*font-size: 24px;*/
+        height: 20px;
+        width: 320px;
+        overflow: hidden;
+}
+
+.stop {
+        display: inline-block; /*inline-block*/
+        margin-top: 16px;
+        margin-left: 10px;
+        border: none;
+background-color: white; 
+    color: black; 
+    border: 1px solid #93228D;
+    padding: 0;        text-align: center;
+        text-decoration: none;
+        box-shadow: 0 1px 2px 0 rgba(0,0,0,0.2), 0 1.5px 5px 0 rgba(0,0,0,0.19);
+        /*background-image: url(images/img_plus.png);*/
+        /*font-size: 24px;*/
+        height: 20px;
+        width: 320px;
+        overflow: hidden;
+}
+
+.save{
+        display: inline-block; /*inline-block*/
+        margin-top: 16px;
+        margin-left: 10px;
+        border: none;
+background-color: white; 
+    color: black; 
+    border: 1px solid #93228D;
+    padding: 0;        text-align: center;
+        text-decoration: none;
+        box-shadow: 0 1px 2px 0 rgba(0,0,0,0.2), 0 1.5px 5px 0 rgba(0,0,0,0.19);
+        /*background-image: url(images/img_plus.png);*/
+        /*font-size: 24px;*/
+        height: 20px;
+        width: 97%;
+        overflow: hidden;
+}
+
+.save_div {
+    float: none;
+    display: table-cell;
+    vertical-align: middle;
+    width: 100%;
+}
+#img_add {
+    height: 10px;
+    width: 10px;
+    text-align: center;}
+
+
+/*HERE STARTS Static first page*/
+
+/*button:focus {outline:0;}*/
+
+#id_h2_title{
+    text-align: center;
+    color: #93228D;
+    margin-right: 
+}
+
+.menu {
+    list-style-type: none;
+    float: left;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #93228D;
+}
+
+#li_1, #li_2,#li_3,#li_4{
+    float: left;
+}
+
+li a, .dropbtn {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover, .dropdown:hover .dropbtn {
+    background-color: #B84B9E;
+}
+
+li.dropdown {
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+/*HERE ENDS Static first page*/
