@@ -4,6 +4,9 @@ Here is a sample of our project, replace the folder "PrimeProducts" we created l
   > * Move to the repository with command line (cd)
   > * Type "python3 manage.py runserver"
   > * Open your browser to 127.0.0.1:8000
+  
+Don't forget to watch/star/fork the repository !
+
 # Screenshots
 
 * Main Page View 
