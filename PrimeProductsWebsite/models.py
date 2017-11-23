@@ -37,8 +37,8 @@ class Client(models.Model):
     password = models.CharField(max_length=30)
     contact = models.ForeignKey(ContactInfo)
     review = models.ForeignKey(Review)
-    favorite = models.ForeignKey(favorite)
-    histroy = models.ForeignKey(history)
+    favorite = models.ForeignKey(Favorite)
+    histroy = models.ForeignKey(History)
     join_date = models.DateTimeField(auto_now_add=True)
 
 
@@ -80,3 +80,6 @@ class Category(models.Model):
 class Favorite(models.Model):
     client = models.ForeignKey(Client)
     product =  models.ForeignKey(Product)
+
+class History(models.Model):
+    query = models.CharField(max_length=500)
