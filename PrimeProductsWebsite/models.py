@@ -20,9 +20,15 @@ class Client(models.Model):
     name = models.CharField(max_length=50, db_index=True)
     username = models.CharField(max_length=30, db_index=True, unique=True)
     password = models.CharField(max_length=30)
-    contact = models.ForeignKey(ContactInfo)
+    contact = models.ForeignKey(
+    'ContactInfo',
+    on_delete=models.CASCADE,
+    )
     #favorite = models.ForeignKey(Favorite)
-    histroy = models.ForeignKey(History)
+    histroy = models.ForeignKey(
+    'History',
+    on_delete=models.CASCADE,
+    )
     join_date = models.DateTimeField(auto_now_add=True)
 
 class Review(models.Model):
@@ -32,23 +38,38 @@ class Review(models.Model):
 
     # what exactly is the status here?
     status = models.BooleanField(default=True)
-    author = models.ForeignKey(Client)
+    author = models.ForeignKey(
+    'Client',
+    on_delete=models.CASCADE,
+    )
     # whats is reports number?
     #num_reports = models.IntegerField(null=False, min_value=0)
 
 class Supermarket(models.Model):
     name = models.CharField(max_length=50, db_index=True)
-    contact = models.ForeignKey(ContactInfo)
+    contact = models.ForeignKey(
+    'ContactInfo',
+    on_delete=models.CASCADE,
+    )
     opening_hours = models.CharField(max_length=50, db_index=True)
-    review = models.ForeignKey(Review)
+    review = models.ForeignKey(
+    'Review',
+    on_delete=models.CASCADE,
+    )
 
 class Manufacturer(models.Model):
     name = models.CharField(max_length=50, db_index=True)
-    contact = models.ForeignKey(ContactInfo)
-    review = models.ForeignKey(Review)
+    contact = models.ForeignKey(
+    'ContactInfo',
+    on_delete=models.CASCADE,
+    )
+    review = models.ForeignKey(
+    'Review',
+    on_delete=models.CASCADE,
+    )
 
 class Product(models.Model):
-    category = models.ForeignKey(Category, related_name='products')
+    category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE,)
     name = models.CharField(max_length=200, db_index=True)
 
     # keywords are stored as JSON object
@@ -69,13 +90,28 @@ class Product(models.Model):
     removed_at = models.DateTimeField(auto_now=True)
 
     # Q: Can many-to-one relation be encoded with a ForeignKey?
-    manufacturer = models.ForeignKey(Manufacturer)
-    supermarket = models.ForeignKey(Supermarket)
-    review = models.ForeignKey(Review)
+    manufacturer = models.ForeignKey(
+    'Manufacturer',
+    on_delete=models.CASCADE,
+    )
+    supermarket = models.ForeignKey(
+    'Supermarket',
+    on_delete=models.CASCADE,
+    )
+    review = models.ForeignKey(
+    'Review',
+    on_delete=models.CASCADE,
+    )
     #offer = models.ForeignKey(Offer)
     #favorite = models.ForeignKey(Favorite)
-    histroy = models.ForeignKey(History)
+    histroy = models.ForeignKey(
+    'History',
+    on_delete=models.CASCADE,
+    )
 
 class Favorite(models.Model):
     #client = models.ForeignKey(Client)
-    product =  models.ForeignKey(Product)
+    product =  models.ForeignKey(
+    'Product',
+    on_delete=models.CASCADE,
+    )
