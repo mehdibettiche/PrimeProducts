@@ -58,7 +58,10 @@
     </style>
     <script>
     $(document).ready(function() {
-          $('#search_btn').click(function(){
+          var d = JSON.parse("{{search_query_result|safe}}".replace(/'/g, '"'));
+          console.log('works');
+          console.log(d);
+          /*$('#search_btn').click(function(){
             ville_select
             //alert("search for the database and leave me alone" + $("#search-field-1").val() + $("#trier_select").val() + $("#prix_select").val() + $("#ville_select").val());
             $.ajax({
@@ -80,7 +83,7 @@
               })
          
          //else alert('Aucun corpus selectionné');
-        });
+        });*/
     });
 
 function getCookie(name) {
@@ -177,85 +180,20 @@ function getCookie(name) {
 
       <div class="android-content mdl-layout__content">
         <a name="top"></a>
-        <div class="android-be-together-section mdl-typography--text-center">
+        <!--<div class="android-be-together-section mdl-typography--text-center">
           <div class="logo-font android-slogan">Search for your product, not ours.</div>
           <div class="logo-font android-sub-slogan">welcome to our website.</div>
           <br>
           <br>
-          <!--<div class="chips chips-dimensions chips-initial inline" id="search_chips">
-              <div class="chip">
-                "test"
-              </div>
-              <div class="chip">
-                "test"
-              </div>
-              <div class="chip">
-                "test"
-              </div>
-              <div class="chip">
-                "test"
-              </div>
-              <div class="chip">
-                "test"
-              </div>
-          </div>-->
+        
           <div class="android-search-box mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label  mdl-textfield--full-width is-upgraded inline search-dimensions" data-upgraded=",MaterialTextfield">
-            <!--<label class="mdl-button mdl-js-button mdl-button--icon" for="search-field-1" data-upgraded=",MaterialButton">
-              <i class="material-icons">label outline</i>
-            </label>-->
+          
             <div class="">
               <input class="mdl-textfield__input" type="text" id="search-field-1">
             </div>
           </div>
 
-            <div class="input-field col s12 inline">
-              <select id="trier_select">
-                <option value="" disabled selected>Trier par</option>
-                <option value="Prix">Prix</option>
-                <option value="Critiques">Critiques</option>
-                <option value="3">Option 3</option>
-              </select>
-              <!--<label>Materialize Select</label>-->
-            </div>
-
-            <div class="input-field col s12 inline">
-              <select id="prix_select">
-                <option value="" disabled selected>Prix entre</option>
-                <option value="1">100-200</option>
-                <option value="2">200-400</option>
-                <option value="3">Option 3</option>
-              </select>
-              <!--<label>Materialize Select</label>-->
-            </div>
-
-            <div class="input-field col s12 inline">
-              <select id="ville_select">
-                <option value="" disabled selected>Ville</option>
-                <option value="Nancy">Nancy</option>
-                <option value="Paris">Paris</option>
-                <option value="3">Option 3</option>
-              </select>
-              <!--<label>Materialize Select</label>-->
-            </div>
-          
-          <div class="inline">
-            <label class="mdl-button mdl-js-button mdl-button--icon" data-upgraded=",MaterialButton" id="search_btn">
-              <a href="result_page"><i class="material-icons">search</i></a>
-            </label>
-          </div>
-          <br>
-          <br>
-         
-            <!--<div class="input-field col s12 m6">
-              <select class="icons">
-                <option value="" disabled selected>Choose your option</option>
-                <option value="" data-icon="images/price.png" class="left circle">example 1</option>
-                <option value="" data-icon="images/price.png" class="left circle">example 2</option>
-                <option value="" data-icon="images/price.png" class="left circle">example 3</option>
-              </select>
-              <label>Images in select</label>
-            </div>-->
-          <!--<div class="logo-font android-create-character">
+          <div class="logo-font android-create-character">
             <a href=""><img src="/static/images/andy.png"> create your android character</a>
           </div>
 
@@ -263,9 +201,9 @@ function getCookie(name) {
             <button class="android-fab mdl-button mdl-button--colored mdl-js-button mdl-button--fab mdl-js-ripple-effect">
               <i class="material-icons">expand_more</i>
             </button>
-          </a>-->
-        </div>
-<!--        <div class="android-screen-section mdl-typography--text-center">
+          </a>
+        </div>-->
+        <!--<div class="android-screen-section mdl-typography--text-center">
           <a name="screens"></a>
           <div class="mdl-typography--display-1-color-contrast">Powering screens of all sizes</div>
           <div class="android-screens">
@@ -328,29 +266,39 @@ function getCookie(name) {
             </p>
           </div>
           <div class="android-customized-section-image"></div>
-        </div>
-        <div class="android-more-section">
-          <div class="android-section-title mdl-typography--display-1-color-contrast">More from Android</div>
-          <div class="android-card-container mdl-grid">
-            <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">
-              <div class="mdl-card__media">
-                <img src="images/more-from-1.png">
-              </div>
-              <div class="mdl-card__title">
-                 <h4 class="mdl-card__title-text">Get going on Android</h4>
-              </div>
-              <div class="mdl-card__supporting-text">
-                <span class="mdl-typography--font-light mdl-typography--subhead">Four tips to make your switch to Android quick and easy</span>
-              </div>
-              <div class="mdl-card__actions">
-                 <a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" href="">
-                   Make the switch
-                   <i class="material-icons">chevron_right</i>
-                 </a>
-              </div>
-            </div>
+        </div>-->
 
-            <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">
+        <div class="android-more-section">
+          <div class="android-section-title mdl-typography--display-1-color-contrast">Resultats pour : {{query}}</div>
+          <div class="android-card-container mdl-grid">
+            
+            <!--TEST TEST -->
+            {% for p in search_query_result %}
+              
+                <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">
+                  <div class="mdl-card__media" style="padding: 20px;">
+                    <img src="/static/images/{{p.image}}">
+                  </div>
+                  <div class="mdl-card__title">
+                     <h4 class="mdl-card__title-text">{{p.name}}</h4>
+                  </div>
+                  <div class="mdl-card__supporting-text">
+                    <span class="mdl-typography--font-light mdl-typography--subhead">{{p.description}}</span>
+                    <br>
+                    <span class="mdl-typography--font-light mdl-typography--subhead" style="font-size:12;font-weight: bold;color:red;">Prix : {{p.price}}€</span>
+                  </div>
+                  <div class="mdl-card__actions">
+                     <a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" href="">
+                       Voir le produit
+                       <i class="material-icons">chevron_right</i>
+                     </a>
+                  </div>
+                </div>
+               
+            {% endfor %}
+            <!-- END TEST TEST -->
+            
+            <!--<div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">
               <div class="mdl-card__media">
                 <img src="images/more-from-4.png">
               </div>
@@ -402,10 +350,12 @@ function getCookie(name) {
                    <i class="material-icons">chevron_right</i>
                  </a>
               </div>
-            </div>
+            </div>-->
           </div>
         </div>
--->
+
+<!-- FOOTER -->
+
         <footer class="android-footer mdl-mega-footer">
           <div class="mdl-mega-footer--top-section">
             <div class="mdl-mega-footer--left-section">

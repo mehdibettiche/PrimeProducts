@@ -20,5 +20,7 @@ from . import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.index, name='index'),
+    url(r'^search_query$', views.search_query, name='search_query'),
+    url(r'^result_page$', views.result_page, name='result_page'),
     #url(r'^$', views.post_list, name='post_list'),
 ]

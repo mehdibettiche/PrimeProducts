@@ -1,9 +1,80 @@
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
+from django.http import Http404, HttpResponse, JsonResponse
+#import json
+import string
+import re
+
+import json
 
 # Create your views here.
 
 def index(request):
     return render(request, 'index.html')
 
-def post_list(request):
-	return render(request, 'PrimeProductsWebsite/post_list.html', {'developers':'Aria, Badr, Reem, Mehdi'})
+def search_query(request):
+	#print("------------STARTING------------")
+    if request.method == "POST":
+        print("IT IS : ")
+        print(request.POST)
+        print("AND body: ")
+        print(request.body)
+    #return render(request, 'search_query.html')
+    #return render(request, '<h2> the hell</h2>')
+    return JsonResponse({'status': True})
+
+def result_page(request):
+    q = []
+    for x in range(1,10):
+        search_query_result = {'name': 'lait produit bebe','image': 'product-testing.png','price': 200+x,'supermarket': 'lidl','description':'produit lait pour bebe 2 3 ans'}
+        q.append(search_query_result)
+    #search_query_result.replace("'",'"')
+    #print(search_query_result)
+    
+    #search_query_result = json.stringify(search_query_result)
+    return render(request, 'search_query.html', {'search_query_result' : q,'query':'lait bebe'})
+
+''',
+      '2': {
+        'name': 'lait produit bebe',
+        'image': '/static/images/product-testing.png',
+        'price': '200',
+        'supermarket': 'lidl'},
+      '3': {
+        'name': 'lait produit bebe',
+        'image': '/static/images/product-testing.png',
+        'price': '200',
+        'supermarket': 'lidl'},
+      '4': {
+        'name': 'lait produit bebe',
+        'image': '/static/images/product-testing.png',
+        'price': '200',
+        'supermarket': 'lidl'},
+      '5': {
+        'name': 'lait produit bebe',
+        'image': '/static/images/product-testing.png',
+        'price': '200',
+        'supermarket': 'lidl'},
+      '6': {
+        'name': 'lait produit bebe',
+        'image': '/static/images/product-testing.png',
+        'price': '200',
+        'supermarket': 'lidl'},
+      '7': {
+        'name': 'lait produit bebe',
+        'image': '/static/images/product-testing.png',
+        'price': '200',
+        'supermarket': 'lidl'},
+      '8': {
+        'name': 'lait produit bebe',
+        'image': '/static/images/product-testing.png',
+        'price': '200',
+        'supermarket': 'lidl'},
+      '9': {
+        'name': 'lait produit bebe',
+        'image': '/static/images/product-testing.png',
+        'price': '200',
+        'supermarket': 'lidl'}}'''
+    #search_query_result = JSON.stringify(search_query_result)
+    #q.append()
+    #return render(request, 'search_query.html', search_query_result)
