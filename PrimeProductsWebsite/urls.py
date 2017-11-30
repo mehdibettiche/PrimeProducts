@@ -24,6 +24,7 @@ urlpatterns = [
     #url(r'^logout/$', views.logout, {'next_page': 'login'}, name='logout'),
 
     url(r'^$', views.index, name='index'),
+    url(r'^accueil$', views.accueil, name='accueil'),
     url(r'^search_query$', views.search_query, name='search_query'),
     url(r'^result_page$', views.result_page, name='result_page'),
 
@@ -31,6 +32,8 @@ urlpatterns = [
     url(r'^show_product_details$', views.show_product_details, name='show_product_details'),
 
     url(r'^categories_listing$', views.categories_listing, name='categories_listing'),
+    url(r'^profile$', views.profile, name='profile'),
+    url(r'^favourite_list$', views.favourite_list, name='favourite_list'),
 
     #url(r'^$', views.post_list, name='post_list'),
 ]

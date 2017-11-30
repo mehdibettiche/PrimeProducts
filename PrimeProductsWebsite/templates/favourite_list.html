@@ -21,7 +21,7 @@
     <!--<link rel="stylesheet" href=" {% static "css/materialize.css" %}?v=00008" type="text/css" rel="alternate stylesheet" media="screen,projection">-->
 
     <link rel="stylesheet" href=" {% static "css/styles.css" %}?v=00005" type="text/css">
-    <link rel="stylesheet" href=" {% static "css/bootstrap.css" %}?v=00005" type="text/css">
+    <link rel="stylesheet" href=" {% static "css/bootstrap.css" %}?v=00001" type="text/css">
 
     <!--<link rel="stylesheet" href=" {% static "css/cssv2/style.css" %}?v=00008">-->
     <link href='//fonts.googleapis.com/css?family=Abel' rel='stylesheet'>
@@ -40,12 +40,47 @@
       margin-bottom: 40px;
       z-index: 900;
     }
-    </style>
+    
+.container {
+    padding-top: 40px;
+}
+.single {
+padding: 30px 15px;
+margin-top: 40px;
+background: #fcfcfc;
+border: 1px solid #f0f0f0; }
+.single h3.side-title {
+margin: 0;
+margin-bottom: 10px;
+padding: 0;
+font-size: 20px;
+color: #333;
+text-transform: uppercase; }
+.single h3.side-title:after {
+content: '';
+width: 60px;
+height: 1px;
+background: #ff173c;
+display: block;
+margin-top: 6px; }
+
+.single ul {
+margin-bottom: 0; }
+.single li a {
+color: #666;
+font-size: 14px;
+text-transform: uppercase;
+border-bottom: 1px solid #f0f0f0;
+line-height: 40px;
+display: block;
+text-decoration: none; }
+.single li a:hover {
+color: #ff173c; }
+.single li:last-child a {
+border-bottom: 0; }
+</style>
     <script>
     $(document).ready(function() {
-          var d = JSON.parse("{{search_query_result|safe}}".replace(/'/g, '"'));
-          //console.log('works');
-          console.log(d);
           $('#search_btn').click(function(){
             ville_select
             //alert("search for the database and leave me alone" + $("#search-field-1").val() + $("#trier_select").val() + $("#prix_select").val() + $("#ville_select").val());
@@ -69,6 +104,25 @@
          
          //else alert('Aucun corpus selectionné');
         });
+
+          $(function() {
+            $('#login-form-link').click(function(e) {
+            $("#login-form").delay(100).fadeIn(100);
+            $("#register-form").fadeOut(100);
+            $('#register-form-link').removeClass('active');
+            $(this).addClass('active');
+            e.preventDefault();
+          });
+          $('#register-form-link').click(function(e) {
+            $("#register-form").delay(100).fadeIn(100);
+            $("#login-form").fadeOut(100);
+            $('#login-form-link').removeClass('active');
+            $(this).addClass('active');
+            e.preventDefault();
+          });
+
+        });
+
     });
 
 function getCookie(name) {
@@ -133,73 +187,32 @@ function getCookie(name) {
 
       <div class="android-content mdl-layout__content">
         <a name="top"></a>
-        <div class="mdl-typography--text-center" style="background:#f9f9f9;padding-top: 20px;">
-<form class="form-horizontal">
-<fieldset>
-<!-- Prepended text-->
-<div class="form-group inline">
-  <input class="mdl-textfield__input inline" type="text" placeholder="nom du produit" id="search-field-1" style="width:350px; float:left;">
-  <div class="col-md-4 inline" style="float:left;">
-    <div class="input-group">
-      <input id="prix_min" name="prependedtext" class="form-control" placeholder="prix min" type="text" required="" style="width:100px;">
-      <span class="input-group-addon"> </span>
-      <input id="prix_max" name="prependedtext" class="form-control" placeholder="prix max" type="text" required="" style="width:100px;">
-
-      <select id="selectCommission" name="selectCommission" class="form-control" style="width:120px; margin-left:20px;height: 40px;">
-        <option value="0">Trier par</option>
-        <option value="C">Prix croissant</option>
-        <option value="D">Prix décroissant</option>
-        <option value="N">Notes utilisateurs</option>
-      </select>
-
-      <label class="mdl-button mdl-js-button mdl-button--icon" data-upgraded=",MaterialButton" id="search_btn" style="margin-left:20px;margin-top: 3px;">
-        <a href="result_page"><i class="material-icons">search</i></a>
-      </label>
-    </div>
-  </div>
+        
+<!--<div class="container" style="width: 1000px;height: 500px;margin-left: 22%;">-->
+<div class="container">
+<div class="row">
+<div class="col-sm-8">
+  <!-- Category -->
+  <div class="single category">
+    <h3 class="side-title">Liste des favoris</h3>
+    <ul class="list-unstyled">
+      {% for c in favoris %}
+      <li><a href="" title="">{{c.name}} <span class="pull-right">{{c.date}}</span></a></li>
+      {% endfor %}
+      <!--<li><a href="" title="">Technology <span class="pull-right">13</span></a></li>
+      <li><a href="" title="">Web <span class="pull-right">13</span></a></li>
+      <li><a href="" title="">Ecommerce <span class="pull-right">13</span></a></li>
+      <li><a href="" title="">Wordpress <span class="pull-right">13</span></a></li>
+      <li><a href="" title="">Android <span class="pull-right">13</span></a></li>
+      <li><a href="" title="">IOS <span class="pull-right">13</span></a></li>
+      <li><a href="" title="">Windows <span class="pull-right">13</span></a></li>-->
+    </ul>
+   </div>
+</div> 
 </div>
+</div>      
+<!--</div>-->
 
-</fieldset>
-</form>        
-</div>
-          
-
-        <!-- END SEARCH -->
-        <div class="android-more-section" style="padding-top:10px;">
-          <div class="android-section-title mdl-typography--display-1-color-contrast">Resultats pour : {{query}}</div>
-          <div class="android-card-container mdl-grid">
-            
-            <!--TEST TEST -->
-            {% for p in search_query_result %}
-              
-                <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">
-                  <div class="mdl-card__media" style="padding: 20px;">
-                    <img src="/static/images/{{p.image}}">
-                  </div>
-                  <div class="mdl-card__title">
-                     <h4 class="mdl-card__title-text">{{p.name}}</h4>
-                  </div>
-                  <div class="mdl-card__supporting-text">
-                    <span class="mdl-typography--font-light mdl-typography--subhead">{{p.description}}</span>
-                    <br>
-                    <span class="mdl-typography--font-light mdl-typography--subhead" style="font-size:12;font-weight: bold;color:red;">Prix : {{p.price}}€</span>
-                  </div>
-                  <div class="mdl-card__actions">
-                     <a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" href="product_details">
-                       Voir le produit
-                       <i class="material-icons">chevron_right</i>
-                     </a>
-                  </div>
-                </div>
-               
-            {% endfor %}
-            <!-- END TEST TEST -->
-            
-           
-          </div>
-        </div>
-
-<!-- FOOTER -->
 
         <footer class="android-footer mdl-mega-footer">
           <div class="mdl-mega-footer--top-section">

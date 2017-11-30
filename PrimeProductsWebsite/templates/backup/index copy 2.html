@@ -1,0 +1,521 @@
+<!doctype html>
+<!--
+  Material Design Lite
+  Copyright 2015 Google Inc. All rights reserved.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      https://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License
+-->
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Introducing Lollipop, a sweet new take on Android.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>PrimeProducts</title>
+
+    <!-- Page styles -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!--<link rel="stylesheet" href="$$hosted_libs_prefix$$/$$version$$/material.min.css">-->
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.css">
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+    <!--<link rel="stylesheet" href="styles.css">-->
+    {% load static %}
+    <!--<link rel="stylesheet" href=" {% static "css/materialize.css" %}?v=00008" type="text/css" rel="alternate stylesheet" media="screen,projection">-->
+
+    <link rel="stylesheet" href=" {% static "css/styles.css" %}?v=00005" type="text/css">
+    <link rel="stylesheet" href=" {% static "css/bootstrap.css" %}?v=00005" type="text/css">
+
+    <!--<link rel="stylesheet" href=" {% static "css/cssv2/style.css" %}?v=00008">-->
+    <link href='//fonts.googleapis.com/css?family=Abel' rel='stylesheet'>
+    <link href='//fonts.googleapis.com/css?family=Amaranth' >
+    <!--<link rel="icon" href=" {% static "images/icons/icon.png" %}?v=00008">-->
+    <!--<script src=" {% static "jquery-3.1.1.min.js" %}"></script>-->
+    <!--<script src=" {% static "js/materialize.js" %}?v=00008"></script>
+    <script src=" {% static "js/init.js" %}?v=00008"></script>-->
+    <style>
+    #view-source {
+      position: fixed;
+      display: block;
+      right: 0;
+      bottom: 0;
+      margin-right: 40px;
+      margin-bottom: 40px;
+      z-index: 900;
+    }
+    </style>
+    <script>
+    $(document).ready(function() {
+          $('#search_btn').click(function(){
+            ville_select
+            //alert("search for the database and leave me alone" + $("#search-field-1").val() + $("#trier_select").val() + $("#prix_select").val() + $("#ville_select").val());
+            $.ajax({
+                  headers: {
+                      'Content-Type':'application/json',
+                      'X-CSRFToken': getCookie('csrftoken')
+                  },
+                  url: 'search_query',
+                  type: 'POST',
+                  data: JSON.stringify({'query': $("#search-field-1").val(), 'trier': $("#trier_select").val(), 'prix': $("#prix_select").val(), 'ville':$("#ville_select").val()}),
+                  success: function(json) {
+                    alert('success');
+                    //$('.overlay').hide();
+                  },
+                  error: function(){
+                    alert('fail')
+                  }
+
+              })
+         
+         //else alert('Aucun corpus selectionné');
+        });
+    });
+
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+    </script>
+  </head>
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+
+      <div class="android-header mdl-layout__header mdl-layout__header--waterfall">
+        <div class="mdl-layout__header-row">
+          <span class="android-title mdl-layout-title">
+            <img class="android-logo-image" src="/static/images/prime-logo.png">
+          </span>
+          <!-- Add spacer, to align navigation to the right in desktop -->
+          <div class="android-header-spacer mdl-layout-spacer"></div>
+          <!--<div class="android-search-box mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right mdl-textfield--full-width">
+            <label class="mdl-button mdl-js-button mdl-button--icon" for="search-field">
+              <i class="material-icons">search</i>
+            </label>
+            <div class="mdl-textfield__expandable-holder">
+              <input class="mdl-textfield__input" type="text" id="search-field">
+            </div>
+          </div>-->
+          <!-- Navigation -->
+          <div class="android-navigation-container">
+            <nav class="android-navigation mdl-navigation">
+              <nav class="android-navigation mdl-navigation">
+              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="accueil">Accueil</a>
+              <!--<a class="mdl-navigation__link mdl-typography--text-uppercase" href="accueil">Recherche</a>-->
+              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="categories_listing">Categories</a>
+              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="contact">Contact</a>
+              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="signup">Login / Signup</a>
+            </nav>
+            </nav>
+          </div>
+          <span class="android-mobile-title mdl-layout-title">
+            <img class="android-logo-image" src="/static/images/prime-logo.png">
+          </span>
+          <button class="android-more-button mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="more-button">
+            <i class="material-icons">more_vert</i>
+          </button>
+          <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="more-button">
+            <li class="mdl-menu__item">Login / Signup</li>
+            <li disabled class="mdl-menu__item">Logout</li>
+            <!--<li disabled class="mdl-menu__item">wit wit</li>
+            <li class="mdl-menu__item">test</li>-->
+          </ul>
+        </div>
+      </div>
+
+      <div class="android-drawer mdl-layout__drawer">
+        <span class="mdl-layout-title">
+          <img class="android-logo-image" src="/static/images/prime-logo-white.png">
+        </span>
+        <nav class="mdl-navigation">
+          <a class="mdl-navigation__link" href="profile">Mon profil</a>
+          <a class="mdl-navigation__link" href="favourite_list">Ma liste des favoris</a>
+          <a class="mdl-navigation__link" href="my_comments">Mes commentaires</a>
+          <a class="mdl-navigation__link" href="contact_form">Contacter le site</a>
+        </nav>
+      </div>
+
+      <div class="android-content mdl-layout__content">
+        <a name="top"></a>
+        <div class="android-be-together-section mdl-typography--text-center">
+          <div class="logo-font android-slogan">Search for your product, not ours.</div>
+          <div class="logo-font android-sub-slogan">welcome to our website.</div>
+          <br>
+          <br>
+          <!--<div class="chips chips-dimensions chips-initial inline" id="search_chips">
+              <div class="chip">
+                "test"
+              </div>
+              <div class="chip">
+                "test"
+              </div>
+              <div class="chip">
+                "test"
+              </div>
+              <div class="chip">
+                "test"
+              </div>
+              <div class="chip">
+                "test"
+              </div>
+          </div>-->
+          <div class="android-search-box mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label  mdl-textfield--full-width is-upgraded inline search-dimensions" data-upgraded=",MaterialTextfield">
+            <!--<label class="mdl-button mdl-js-button mdl-button--icon" for="search-field-1" data-upgraded=",MaterialButton">
+              <i class="material-icons">label outline</i>
+            </label>-->
+            <div class="">
+              <input class="mdl-textfield__input" type="text" id="search-field-1">
+            </div>
+          </div>
+            <div class="container">
+              <div class="row">
+                    <h1>Choose your theme</h1>
+                <p>
+                  <select class="form-control" name="Theme" required>
+                    <option value="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">Vanilla Bootstrap</option>
+                    <option value="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/cerulean/bootstrap.min.css">Cerulean</option>
+                    <option value="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/cosmo/bootstrap.min.css">Cosmo</option>
+                    <option value="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/cyborg/bootstrap.min.css">Cyborg</option>
+                    <option value="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/darkly/bootstrap.min.css">Darkly</option>
+                    <option value="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/flatly/bootstrap.min.css">Flatly</option>
+                    <option value="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/journal/bootstrap.min.css">Journal</option>
+                    <option value="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/lumen/bootstrap.min.css">Lumen</option>
+                    <option value="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/paper/bootstrap.min.css">Paper</option>
+                    <option value="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/readable/bootstrap.min.css">Readable</option>
+                    <option value="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/sandstone/bootstrap.min.css">Sandstone</option>
+                    <option value="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/simplex/bootstrap.min.css">Simplex</option>
+                    <option value="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/slate/bootstrap.min.css">Slate</option>
+                    <option value="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/spacelab/bootstrap.min.css">Spacelab</option>
+                    <option value="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/superhero/bootstrap.min.css">Superhero</option>
+                    <option value="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/united/bootstrap.min.css">United</option>
+                    <option value="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/yeti/bootstrap.min.css">Yeti</option>
+                  </select>
+                </p>
+              </div>
+            </div>
+            <div class="input-field col s12 inline">
+              <select id="trier_select">
+                <option value="" disabled selected>Trier par</option>
+                <option value="Prix">Prix</option>
+                <option value="Critiques">Critiques</option>
+                <option value="3">Option 3</option>
+              </select>
+              <!--<label>Materialize Select</label>-->
+            </div>
+
+            <div class="input-field col s12 inline">
+              <select id="prix_select">
+                <option value="" disabled selected>Prix entre</option>
+                <option value="1">100-200</option>
+                <option value="2">200-400</option>
+                <option value="3">Option 3</option>
+              </select>
+              <!--<label>Materialize Select</label>-->
+            </div>
+
+            <div class="input-field col s12 inline">
+              <select id="ville_select">
+                <option value="" disabled selected>Ville</option>
+                <option value="Nancy">Nancy</option>
+                <option value="Paris">Paris</option>
+                <option value="3">Option 3</option>
+              </select>
+              <!--<label>Materialize Select</label>-->
+            </div>
+          
+          <div class="inline">
+            <label class="mdl-button mdl-js-button mdl-button--icon" data-upgraded=",MaterialButton" id="search_btn">
+              <a href="result_page"><i class="material-icons">search</i></a>
+            </label>
+          </div>
+          <br>
+          <br>
+<form class="form-horizontal">
+<fieldset>
+<!-- Form Name -->
+<legend>List Price and Buyer's Commission Amount</legend>
+
+<!-- Prepended text-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="prependedtext">List Price</label>
+  <div class="col-md-4">
+    <div class="input-group">
+      <span class="input-group-addon">Prix minimum</span>
+      <input id="prix_min" name="prependedtext" class="form-control" placeholder="" type="text" required="">
+      <span class="input-group-addon">Prix Maximum</span>
+      <input id="prix_max" name="prependedtext" class="form-control" placeholder="" type="text" required="">
+    </div>
+    
+  </div>
+</div>
+
+<!-- Select Basic -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="selectCommission">Buyer's Agent Commission</label>
+  <div class="col-md-2">
+    <select id="selectCommission" name="selectCommission" class="form-control">
+      <option value="0">Trier par</option>
+      <option value="C">Prix croissant</option>
+      <option value="D">Prix décroissant</option>
+      <option value="N">Notes utilisateurs</option>
+    </select>
+  </div>
+</div>
+
+<div class="inline">
+  <label class="mdl-button mdl-js-button mdl-button--icon" data-upgraded=",MaterialButton" id="search_btn">
+    <a href="result_page"><i class="material-icons">search</i></a>
+  </label>
+</div>
+<!-- Button (Double) -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="button1id"></label>
+  <div class="col-md-8">
+    <button id="button1id" name="button1id" class="btn btn-warning">Back</button>
+    <button id="button2id" name="button2id" class="btn btn-primary">Next</button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+            <!--<div class="input-field col s12 m6">
+              <select class="icons">
+                <option value="" disabled selected>Choose your option</option>
+                <option value="" data-icon="images/price.png" class="left circle">example 1</option>
+                <option value="" data-icon="images/price.png" class="left circle">example 2</option>
+                <option value="" data-icon="images/price.png" class="left circle">example 3</option>
+              </select>
+              <label>Images in select</label>
+            </div>-->
+          <!--<div class="logo-font android-create-character">
+            <a href=""><img src="/static/images/andy.png"> create your android character</a>
+          </div>
+
+          <a href="#screens">
+            <button class="android-fab mdl-button mdl-button--colored mdl-js-button mdl-button--fab mdl-js-ripple-effect">
+              <i class="material-icons">expand_more</i>
+            </button>
+          </a>-->
+        </div>
+<!--        <div class="android-screen-section mdl-typography--text-center">
+          <a name="screens"></a>
+          <div class="mdl-typography--display-1-color-contrast">Powering screens of all sizes</div>
+          <div class="android-screens">
+            <div class="android-wear android-screen">
+              <a class="android-image-link" href="">
+                <img class="android-screen-image" src="/static/images/wear-silver-on.png">
+                <img class="android-screen-image" src="/static/images/wear-black-on.png">
+              </a>
+              <a class="android-link mdl-typography--font-regular mdl-typography--text-uppercase" href="">Android Wear</a>
+            </div>
+            <div class="android-phone android-screen">
+              <a class="android-image-link" href="">
+                <img class="android-screen-image" src="/static/images/nexus6-on.jpg">
+              </a>
+              <a class="android-link mdl-typography--font-regular mdl-typography--text-uppercase" href="">Phones</a>
+            </div>
+            <div class="android-tablet android-screen">
+              <a class="android-image-link" href="">
+                <img class="android-screen-image" src="/static/images/nexus9-on.jpg">
+              </a>
+              <a class="android-link mdl-typography--font-regular mdl-typography--text-uppercase" href="">Tablets</a>
+            </div>
+            <div class="android-tv android-screen">
+              <a class="android-image-link" href="">
+                <img class="android-screen-image" src="/static/images/tv-on.jpg">
+              </a>
+              <a class="android-link mdl-typography--font-regular mdl-typography--text-uppercase" href="">Android TV</a>
+            </div>
+            <div class="android-auto android-screen">
+              <a class="android-image-link" href="">
+                <img class="android-screen-image" src="/static/images/auto-on.jpg">
+              </a>
+              <a class="android-link mdl-typography--font-regular mdl-typography--text-uppercase mdl-typography--text-left" href="">Coming Soon: Android Auto</a>
+            </div>
+          </div>
+        </div>
+        <div class="android-wear-section">
+          <div class="android-wear-band">
+            <div class="android-wear-band-text">
+              <div class="mdl-typography--display-2 mdl-typography--font-thin">The best of Google built in</div>
+              <p class="mdl-typography--headline mdl-typography--font-thin">
+                Android works perfectly with your favourite apps like Google Maps,
+                Calendar and YouTube.
+              </p>
+              <p>
+                <a class="mdl-typography--font-regular mdl-typography--text-uppercase android-alt-link" href="">
+                  See what's new in the Play Store&nbsp;<i class="material-icons">chevron_right</i>
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="android-customized-section">
+          <div class="android-customized-section-text">
+            <div class="mdl-typography--font-light mdl-typography--display-1-color-contrast">Customised by you, for you</div>
+            <p class="mdl-typography--font-light">
+              Put the stuff that you care about right on your home screen: the latest news, the weather or a stream of your recent photos.
+              <br>
+              <a href="" class="android-link mdl-typography--font-light">Customise your phone</a>
+            </p>
+          </div>
+          <div class="android-customized-section-image"></div>
+        </div>
+        <div class="android-more-section">
+          <div class="android-section-title mdl-typography--display-1-color-contrast">More from Android</div>
+          <div class="android-card-container mdl-grid">
+            <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">
+              <div class="mdl-card__media">
+                <img src="images/more-from-1.png">
+              </div>
+              <div class="mdl-card__title">
+                 <h4 class="mdl-card__title-text">Get going on Android</h4>
+              </div>
+              <div class="mdl-card__supporting-text">
+                <span class="mdl-typography--font-light mdl-typography--subhead">Four tips to make your switch to Android quick and easy</span>
+              </div>
+              <div class="mdl-card__actions">
+                 <a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" href="">
+                   Make the switch
+                   <i class="material-icons">chevron_right</i>
+                 </a>
+              </div>
+            </div>
+
+            <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">
+              <div class="mdl-card__media">
+                <img src="images/more-from-4.png">
+              </div>
+              <div class="mdl-card__title">
+                 <h4 class="mdl-card__title-text">Create your own Android character</h4>
+              </div>
+              <div class="mdl-card__supporting-text">
+                <span class="mdl-typography--font-light mdl-typography--subhead">Turn the little green Android mascot into you, your friends, anyone!</span>
+              </div>
+              <div class="mdl-card__actions">
+                 <a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" href="">
+                   androidify.com
+                   <i class="material-icons">chevron_right</i>
+                 </a>
+              </div>
+            </div>
+
+            <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">
+              <div class="mdl-card__media">
+                <img src="images/more-from-2.png">
+              </div>
+              <div class="mdl-card__title">
+                 <h4 class="mdl-card__title-text">Get a clean customisable home screen</h4>
+              </div>
+              <div class="mdl-card__supporting-text">
+                <span class="mdl-typography--font-light mdl-typography--subhead">A clean, simple, customisable home screen that comes with the power of Google Now: Traffic alerts, weather and much more, just a swipe away.</span>
+              </div>
+              <div class="mdl-card__actions">
+                 <a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" href="">
+                   Download now
+                   <i class="material-icons">chevron_right</i>
+                 </a>
+              </div>
+            </div>
+
+            <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">
+              <div class="mdl-card__media">
+                <img src="images/more-from-3.png">
+              </div>
+              <div class="mdl-card__title">
+                 <h4 class="mdl-card__title-text">Millions to choose from</h4>
+              </div>
+              <div class="mdl-card__supporting-text">
+                <span class="mdl-typography--font-light mdl-typography--subhead">Hail a taxi, find a recipe, run through a temple – Google Play has all the apps and games that let you make your Android device uniquely yours.</span>
+              </div>
+              <div class="mdl-card__actions">
+                 <a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" href="">
+                   Find apps
+                   <i class="material-icons">chevron_right</i>
+                 </a>
+              </div>
+            </div>
+          </div>
+        </div>
+-->
+        <footer class="android-footer mdl-mega-footer">
+          <div class="mdl-mega-footer--top-section">
+            <!--<div class="mdl-mega-footer--left-section">
+              <button class="mdl-mega-footer--social-btn"></button>
+              &nbsp;
+              <button class="mdl-mega-footer--social-btn"></button>
+              &nbsp;
+              <button class="mdl-mega-footer--social-btn"></button>
+            </div>-->
+            <div class="mdl-mega-footer--right-section">
+              <a class="mdl-typography--font-light" href="#top">
+                Back to Top
+                <i class="material-icons">expand_less</i>
+              </a>
+            </div>
+          </div>
+
+          <div class="mdl-mega-footer--middle-section">
+            <p class="mdl-typography--font-light">Aria, Reem, Badr & Mehdi © 2017 Nancy</p>
+            <p class="mdl-typography--font-light">PrimeProducts website.</p>
+          </div>
+
+          <!--<div class="mdl-mega-footer--bottom-section">
+            <a class="android-link android-link-menu mdl-typography--font-light" id="version-dropdown">
+              Versions
+              <i class="material-icons">arrow_drop_up</i>
+            </a>
+            <ul class="mdl-menu mdl-js-menu mdl-menu--top-left mdl-js-ripple-effect" for="version-dropdown">
+              <li class="mdl-menu__item">youpi</li>
+              <li class="mdl-menu__item">te</li>
+              <li class="mdl-menu__item">tes</li>
+              <li class="mdl-menu__item">test</li>
+            </ul>
+            <a class="android-link android-link-menu mdl-typography--font-light" id="developers-dropdown">
+              For Developers
+              <i class="material-icons">arrow_drop_up</i>
+            </a>
+            <ul class="mdl-menu mdl-js-menu mdl-menu--top-left mdl-js-ripple-effect" for="developers-dropdown">
+              <li class="mdl-menu__item">yep</li>
+              <li class="mdl-menu__item">haha</li>
+              <li class="mdl-menu__item">i'm unstopable</li>
+              <li class="mdl-menu__item">tips</li>
+            </ul>
+            <a class="android-link mdl-typography--font-light" href="">Blog</a>
+            <a class="android-link mdl-typography--font-light" href="">Privacy Policy</a>
+          </div>-->
+
+        </footer>
+      </div>
+    </div>
+    <!--<a href="https://github.com/google/material-design-lite/blob/mdl-1.x/templates/android-dot-com/" target="_blank" id="view-source" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">View Source</a>-->
+    <!--<script src="$$hosted_libs_prefix$$/$$version$$/material.min.js"></script>-->
+    <script src="https://storage.googleapis.com/code.getmdl.io/1.0.4/material.min.js"></script>
+    {% block footer %}
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script type="text/javascript" src="{% static 'js/materialize.js' %}"></script>
+    {% endblock %}
+  </body>
+</html>

@@ -31,8 +31,17 @@ def signup(request):
 def index(request):
     return render(request, 'index.html')
 
+def accueil(request):
+    return render(request, 'index.html')
+
 def signup(request):
     return render(request, 'signup_login.html')
+
+def profile(request):
+    q = []
+    profile_info = {'username': 'Mehdi Bettiche','image': 'M.png','date':'01-01-0001 - 00:00'}
+    q.append(profile_info)
+    return render(request, 'profile.html',{'user_information':q})
 
 def categories_listing(request):
     q = []
@@ -40,6 +49,13 @@ def categories_listing(request):
         categorie = {'categorie': 'Alimentaire','number_of_products': 100+x}
         q.append(categorie)
     return render(request, 'categories_listing.html', {'categories':q})
+
+def favourite_list(request):
+    q = []
+    for x in range(1,20):
+        favoris = {'name': 'lait produit bebe','date': '01-01-0001 - 00:00'}
+        q.append(favoris)
+    return render(request, 'favourite_list.html', {'favoris':q})
 
 @csrf_exempt 
 def search_query(request):
