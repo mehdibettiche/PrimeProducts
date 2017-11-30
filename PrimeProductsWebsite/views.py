@@ -8,10 +8,32 @@ import re
 import json
 
 # Create your views here.
+'''
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render, redirect
 
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('home')
+    else:
+        form = UserCreationForm()
+    return render(request, 'signup.html', {'form': form})
+'''
 def index(request):
     return render(request, 'index.html')
 
+def signup(request):
+    return render(request, 'signup_login.html')
+
+@csrf_exempt 
 def search_query(request):
 	#print("------------STARTING------------")
     if request.method == "POST":
@@ -33,6 +55,27 @@ def result_page(request):
     
     #search_query_result = json.stringify(search_query_result)
     return render(request, 'search_query.html', {'search_query_result' : q,'query':'lait bebe'})
+
+@csrf_exempt
+def show_product_details(request):
+    return render(request, 'product_details.html')
+
+#
+#
+def product_details(request):
+    q = []
+    search_query_result = {'name': 'Amina is a potatoe','image': 'product-testing.png','price': 200,'supermarket': 'lidl','description':'produit lait pour bebe 2 3 ans'}
+    q.append(search_query_result)
+
+    c = []
+    for x in range(1,10):
+        reviews = {'user_id':x,'username': 'testtest','image': 'product-testing.png','review':'this thing is not okay it is somehow really bad','stars':0+x}
+        c.append(reviews)
+
+    return render(request, 'product_details.html', {'product_details' : q, 'reviews':c})
+
+
+
 
 ''',
       '2': {

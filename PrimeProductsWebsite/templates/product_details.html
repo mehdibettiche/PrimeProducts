@@ -55,6 +55,20 @@
       margin-bottom: 40px;
       z-index: 900;
     }
+    .rating {
+      unicode-bidi: bidi-override;
+      direction: rtl;
+    }
+    .rating > span {
+      display: inline-block;
+      position: relative;
+      width: 1.1em;
+    }
+    .rating > span:hover:before,
+    .rating > span:hover ~ span:before {
+       content: "\2605";
+       position: absolute;
+    }
     </style>
     <script>
     $(document).ready(function() {
@@ -180,81 +194,73 @@ function getCookie(name) {
 
       <div class="android-content mdl-layout__content">
         <a name="top"></a>
-        <div class="mdl-typography--text-center" style="background:#e6e6e6">
         
-          <div class="android-search-box mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label  mdl-textfield--full-width is-upgraded inline search-dimensions" data-upgraded=",MaterialTextfield">
-            <!--<label class="mdl-button mdl-js-button mdl-button--icon" for="search-field-1" data-upgraded=",MaterialButton">
-              <i class="material-icons">label outline</i>
-            </label>-->
-            <div class="">
-              <input class="mdl-textfield__input" type="text" id="search-field-1">
+        <div class="android-wear-section" style="height:420px;">
+          <div class="android-wear-band" style="position: relative;margin-top:50px;height: 400px;">
+            <div class="mdl-card__media" style="padding: 2px; margin: 30px;display: inline-block;background-color: unset; float:left;margin-top: 80px;">
+              <img src="/static/images/product-testing.png" style="height:250px;width:250px;">
             </div>
+            {% for p in product_details|slice:":1" %}
+            <div class="android-wear-band-text" style="display:inline;">
+              <div class="mdl-typography--display-2 mdl-typography--font-thin" style="margin-top: 80px;">{{p.name}}</div>
+              <p class="mdl-typography--headline mdl-typography--font-thin">
+                Description : {{p.description}}
+              </p>
+              <p class="mdl-typography--headline mdl-typography--font-thin">
+                Supermarché : {{p.supermarket}}
+              </p>
+              <p class="mdl-typography--headline mdl-typography--font-thin">
+                Prix : {{p.price}}
+              </p>
+              <div class="rating" style="font-size: 22px;width: 1.2em;">
+                <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+              </div>
+              <p>
+                <!--<a class="mdl-typography--font-regular mdl-typography--text-uppercase android-alt-link" href="">
+                  See what's new in the Play Store&nbsp;<i class="material-icons">chevron_right</i>
+                </a>-->
+              </p>
+            </div>
+            {% endfor %}
           </div>
-
-            <div class="input-field col s12 inline">
-              <select id="trier_select">
-                <option value="" disabled selected>Trier par</option>
-                <option value="Prix">Prix</option>
-                <option value="Critiques">Critiques</option>
-                <option value="3">Option 3</option>
-              </select>
-              <!--<label>Materialize Select</label>-->
-            </div>
-
-            <div class="input-field col s12 inline">
-              <select id="prix_select">
-                <option value="" disabled selected>Prix entre</option>
-                <option value="1">100-200</option>
-                <option value="2">200-400</option>
-                <option value="3">Option 3</option>
-              </select>
-              <!--<label>Materialize Select</label>-->
-            </div>
-
-            <div class="input-field col s12 inline">
-              <select id="ville_select">
-                <option value="" disabled selected>Ville</option>
-                <option value="Nancy">Nancy</option>
-                <option value="Paris">Paris</option>
-                <option value="3">Option 3</option>
-              </select>
-              <!--<label>Materialize Select</label>-->
-            </div>
-          
-          <div class="inline">
-            <label class="mdl-button mdl-js-button mdl-button--icon" data-upgraded=",MaterialButton" id="search_btn">
-              <a href="result_page"><i class="material-icons">search</i></a>
-            </label>
-          </div>
-          <br>
-          <br>
         </div>
-        <!-- END SEARCH -->
+
         <div class="android-more-section" style="padding-top:0px;">
-          <div class="android-section-title mdl-typography--display-1-color-contrast">Resultats pour : {{query}}</div>
+          <!--<div class="android-section-title mdl-typography--display-1-color-contrast">Resultats pour : {{query}}</div>-->
           <div class="android-card-container mdl-grid">
             
             <!--TEST TEST -->
-            {% for p in search_query_result %}
+            {% for p in reviews %}
               
-                <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">
-                  <div class="mdl-card__media" style="padding: 20px;">
+                <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp" style="width: 97%;">
+                  <!--<div class="mdl-card__media" style="padding: 20px; width: 100px; height: 100px;">
                     <img src="/static/images/{{p.image}}">
+                    <h4 class="mdl-card__title-text">{{p.username}}</h4>
+                    <h4 class="mdl-card__title-text">{{p.username}}</h4>
+                  </div>-->
+                  <div class="" style="padding: 20px; width: 100px; height: 100px;">
+                    <p><img src="/static/images/{{p.image}}" alt="Username" align="left" style="width: 50px; height: 50px;"><p style="font-family: 'Roboto','Helvetica','Arial',sans-serif;font-weight: 400;margin-top: -20px;margin-left: 60px;font-size: 18px;width: 600px;">{{p.username}} - {{p.stars}} stars</p><p style="font-family: 'Roboto','Helvetica','Arial',sans-serif;font-weight: 400;margin-top: -20px;margin-left: 60px;width: 600px;">{{p.review}}</p>
+                    <!--<img src="/static/images/{{p.image}}" style="padding: 20px; width: 100px; height: 100px;display:inline-block;">
+                    <h4 class="" style="display:inline-block;">{{p.username}}</h4>
+                    <h4 class="" style="display:inline-block;">{{p.username}}</h4>-->
                   </div>
-                  <div class="mdl-card__title">
-                     <h4 class="mdl-card__title-text">{{p.name}}</h4>
+                  <div class="rating">
+                    <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
                   </div>
-                  <div class="mdl-card__supporting-text">
-                    <span class="mdl-typography--font-light mdl-typography--subhead">{{p.description}}</span>
+                  <!--<div class="mdl-card__title" style="display:inline-block">
+                     <h4 class="mdl-card__title-text">{{p.username}}</h4>
+                  </div>
+                  <div class="mdl-card__supporting-text" style="display:inline-block">
+                    <span class="mdl-typography--font-light mdl-typography--subhead">{{p.review}}</span>
                     <br>
-                    <span class="mdl-typography--font-light mdl-typography--subhead" style="font-size:12;font-weight: bold;color:red;">Prix : {{p.price}}€</span>
+                    <span class="mdl-typography--font-light mdl-typography--subhead" style="font-size:12;font-weight: bold;color:red;">Prix : {{p.star}}€</span>
                   </div>
                   <div class="mdl-card__actions">
                      <a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" href="product_details">
                        Voir le produit
                        <i class="material-icons">chevron_right</i>
                      </a>
-                  </div>
+                  </div>-->
                 </div>
                
             {% endfor %}
