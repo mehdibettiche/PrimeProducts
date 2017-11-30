@@ -21,6 +21,9 @@ Don't forget to watch/star/fork the repository !
 * Search result page view 
 ![Left slider view](https://github.com/mehdibettiche/PrimeProducts/blob/master/Screenshots/4.png)
 
+* Categories listing 
+![Left slider view](https://github.com/mehdibettiche/PrimeProducts/blob/master/Screenshots/7.png)
+
 * Left slider view 
 ![Left slider view](https://github.com/mehdibettiche/PrimeProducts/blob/master/Screenshots/2.png)
 
