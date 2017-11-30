@@ -27,6 +27,12 @@ Don't forget to watch/star/fork the repository !
 * Left slider view (active when a user is logged in)
 ![Left slider view](https://github.com/mehdibettiche/PrimeProducts/blob/master/Screenshots/5.png)
 
+* Product page view
+![Left slider view](https://github.com/mehdibettiche/PrimeProducts/blob/master/Screenshots/10.png)
+
+* Product page comments view
+![Left slider view](https://github.com/mehdibettiche/PrimeProducts/blob/master/Screenshots/11.png)
+
 * Top right button View
 ![Footer View](https://github.com/mehdibettiche/PrimeProducts/blob/master/Screenshots/6.png)
 
