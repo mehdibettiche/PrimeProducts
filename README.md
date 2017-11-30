@@ -12,6 +12,12 @@ Don't forget to watch/star/fork the repository !
 * Main Page View 
 ![Main Page View](https://github.com/mehdibettiche/PrimeProducts/blob/master/Screenshots/1.png)
 
+* Login Page 
+![Main Page View](https://github.com/mehdibettiche/PrimeProducts/blob/master/Screenshots/5.png)
+
+* Register Page
+![Main Page View](https://github.com/mehdibettiche/PrimeProducts/blob/master/Screenshots/6.png)
+
 * Search result page view 
 ![Left slider view](https://github.com/mehdibettiche/PrimeProducts/blob/master/Screenshots/4.png)
 
