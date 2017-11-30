@@ -24,9 +24,8 @@ Don't forget to watch/star/fork the repository !
 * Categories listing 
 ![Left slider view](https://github.com/mehdibettiche/PrimeProducts/blob/master/Screenshots/7.png)
 
-* Left slider view 
+* Left slider view (active when a user is logged in)
 ![Left slider view](https://github.com/mehdibettiche/PrimeProducts/blob/master/Screenshots/2.png)
 
 * Footer View
 ![Footer View](https://github.com/mehdibettiche/PrimeProducts/blob/master/Screenshots/3.png)
-
