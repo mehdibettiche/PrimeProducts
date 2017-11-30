@@ -14,32 +14,30 @@
     <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.css">
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
     {% load static %}
+
     <link rel="stylesheet" href=" {% static "css/styles.css" %}?v=00005" type="text/css">
-    <link rel="stylesheet" href=" {% static "css/bootstrap.css" %}?v=00005" type="text/css">
+    <link rel="stylesheet" href=" {% static "css/bootstrap.css" %}?v=00001" type="text/css">
     <link href='//fonts.googleapis.com/css?family=Abel' rel='stylesheet'>
     <link href='//fonts.googleapis.com/css?family=Amaranth' >
     
-<style>
-#view-source {
-  position: fixed;
-  display: block;
-  right: 0;
-  bottom: 0;
-  margin-right: 40px;
-  margin-bottom: 40px;
-  z-index: 900;
-}
+    <style>
+    #view-source {
+      position: fixed;
+      display: block;
+      right: 0;
+      bottom: 0;
+      margin-right: 40px;
+      margin-bottom: 40px;
+      z-index: 900;
+    }
 </style>
     <script>
     $(document).ready(function() {
           $('#search_btn').click(function(){
-            //console.log($("#search-field-1").val());
-            if($("#search-field-1").val() == '')
-            {
-              console.log("empty");
-
-            }else{
+            ville_select
+            //alert("search for the database and leave me alone" + $("#search-field-1").val() + $("#trier_select").val() + $("#prix_select").val() + $("#ville_select").val());
             $.ajax({
                   headers: {
                       'Content-Type':'application/json',
@@ -47,17 +45,38 @@
                   },
                   url: 'search_query',
                   type: 'POST',
-                  data: JSON.stringify({'query': $("#search-field-1").val(), 'trier': $("#selectCommission").val(), 'prix_min': $("#prix_min").val(), 'prix_max': $("#prix_max").val()}),
+                  data: JSON.stringify({'query': $("#search-field-1").val(), 'trier': $("#trier_select").val(), 'prix': $("#prix_select").val(), 'ville':$("#ville_select").val()}),
                   success: function(json) {
                     alert('success');
-                    //window.location('product_details');
+                    //$('.overlay').hide();
                   },
                   error: function(){
                     alert('fail')
                   }
+
               })
-            }         
+         
+         //else alert('Aucun corpus selectionné');
         });
+
+          $(function() {
+            $('#login-form-link').click(function(e) {
+            $("#login-form").delay(100).fadeIn(100);
+            $("#register-form").fadeOut(100);
+            $('#register-form-link').removeClass('active');
+            $(this).addClass('active');
+            e.preventDefault();
+          });
+          $('#register-form-link').click(function(e) {
+            $("#register-form").delay(100).fadeIn(100);
+            $("#login-form").fadeOut(100);
+            $('#login-form-link').removeClass('active');
+            $(this).addClass('active');
+            e.preventDefault();
+          });
+
+        });
+
     });
 
 function getCookie(name) {
@@ -122,41 +141,51 @@ function getCookie(name) {
 
       <div class="android-content mdl-layout__content">
         <a name="top"></a>
-        <div class="android-be-together-section mdl-typography--text-center">
-          <div class="logo-font android-slogan">Recherchez votre produit, pas le notre.</div>
-          <div class="logo-font android-sub-slogan">Bienvenue sur votre site.</div>
-          <br>
-          <br>
-          
-<form class="form-horizontal">
-<fieldset>
-<!-- Prepended text-->
-<div class="form-group inline">
-  <input class="mdl-textfield__input inline" type="text" placeholder="nom du produit" id="search-field-1" style="width:350px; float:left;">
-  <div class="col-md-4 inline" style="float:left;">
-    <div class="input-group">
-      <input id="prix_min" name="prependedtext" class="form-control" placeholder="prix min" type="text" required="" style="width:100px;">
-      <span class="input-group-addon"> </span>
-      <input id="prix_max" name="prependedtext" class="form-control" placeholder="prix max" type="text" required="" style="width:100px;">
-
-      <select id="selectCommission" name="selectCommission" class="form-control" style="width:120px; margin-left:20px;height: 40px;">
-        <option value="0">Trier par</option>
-        <option value="C">Prix croissant</option>
-        <option value="D">Prix décroissant</option>
-        <option value="N">Notes utilisateurs</option>
-      </select>
-
-      <label class="mdl-button mdl-js-button mdl-button--icon" data-upgraded=",MaterialButton" id="search_btn" style="margin-left:20px;margin-top: 3px;">
-        <a href="result_page"><i class="material-icons">search</i></a>
-      </label>
-    </div>
-  </div>
-</div>
-
-</fieldset>
-</form>
+        <div class="android-wear-section" style="height:420px;">
+          <div class="android-wear-band" style="position: relative;margin-top:50px;height: 400px;">
+            <div class="mdl-card__media" style="padding: 2px; margin: 30px;display: inline-block;background-color: unset; float:left;margin-top: 80px;">
+              <img src="/static/images/alphabet/P.png" style="height:250px;width:250px;">
+            </div>
+            <div class="android-wear-band-text" style="display:inline;">
+              <div class="mdl-typography--display-2 mdl-typography--font-thin" style="margin-top: 80px;">Prime Products</div>
+              <p class="mdl-typography--headline mdl-typography--font-thin">
+                Prime Products est un site qui permet de comparer les prix de différents produits disponible dans les supermarchés de France.
+                <br>
+                L'utilisation du site et l'inscription au site est gratuite. 
+                <br>
+                En vous inscrivant, vous pouvez mieux gérer vos achats avec une liste de favoris.
+              </p>
+              <!--<p class="mdl-typography--headline mdl-typography--font-thin">
+                Supermarché : 
+              </p>
+              <p class="mdl-typography--headline mdl-typography--font-thin">
+                Prix : 
+              </p>-->
+              
+            </div>
+          </div>
         </div>
 
+<div class="container" style="padding-top:50px">
+  <div class="row">
+    <div class="span6">
+            <form>
+                <p>Vous pouvez nous contacter en remplissant ce formulaire.</p>
+                <div class="controls controls-row">
+                    <input id="name" name="name" type="text" class="span3" placeholder="Nom" style="width:200px"> 
+                    <input id="email" name="email" type="email" class="span3" placeholder="Adresse mail" style="width:297px">
+                </div>
+                <div class="controls">
+                    <textarea id="message" name="message" class="span6" placeholder="Votre message" rows="5" style="width:500px;margin-top:10px"></textarea>
+                </div>
+                  
+                <div class="controls">
+                    <button id="contact-submit" type="submit" class="btn btn-primary input-medium pull-right" style="width:500px">Envoyer</button>
+                </div>
+            </form>
+        </div>
+  </div>
+</div>
         <footer class="android-footer mdl-mega-footer">
           <div class="mdl-mega-footer--top-section">
       

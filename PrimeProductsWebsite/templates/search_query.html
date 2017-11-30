@@ -43,12 +43,17 @@
     </style>
     <script>
     $(document).ready(function() {
-          var d = JSON.parse("{{search_query_result|safe}}".replace(/'/g, '"'));
-          //console.log('works');
-          console.log(d);
+          
+          var par = {{search|safe}};
+          console.log(par);
+          $("#selectCommission").val(par.trier);
           $('#search_btn').click(function(){
-            ville_select
-            //alert("search for the database and leave me alone" + $("#search-field-1").val() + $("#trier_select").val() + $("#prix_select").val() + $("#ville_select").val());
+            //console.log($("#search-field-1").val());
+            if($("#search-field-1").val() == '')
+            {
+              console.log("empty");
+
+            }else{
             $.ajax({
                   headers: {
                       'Content-Type':'application/json',
@@ -56,18 +61,16 @@
                   },
                   url: 'search_query',
                   type: 'POST',
-                  data: JSON.stringify({'query': $("#search-field-1").val(), 'trier': $("#trier_select").val(), 'prix': $("#prix_select").val(), 'ville':$("#ville_select").val()}),
+                  data: JSON.stringify({'query': $("#search-field-1").val(), 'trier': $("#selectCommission").val(), 'prix_min': $("#prix_min").val(), 'prix_max': $("#prix_max").val()}),
                   success: function(json) {
                     alert('success');
-                    //$('.overlay').hide();
+                    //window.location('product_details');
                   },
                   error: function(){
                     alert('fail')
                   }
-
               })
-         
-         //else alert('Aucun corpus selectionné');
+            }         
         });
     });
 
@@ -102,7 +105,7 @@ function getCookie(name) {
               <a class="mdl-navigation__link mdl-typography--text-uppercase" href="accueil">Accueil</a>
               <a class="mdl-navigation__link mdl-typography--text-uppercase" href="categories_listing">Categories</a>
               <a class="mdl-navigation__link mdl-typography--text-uppercase" href="contact">Contact</a>
-              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="signup">Connexion</a>
+              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="connexion">Connexion</a>
             </nav>
             </nav>
           </div>
@@ -113,7 +116,7 @@ function getCookie(name) {
             <i class="material-icons">more_vert</i>
           </button>
           <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="more-button">
-            <li class="mdl-menu__item"><a href="signup">Connexion</a></li>
+            <li class="mdl-menu__item"><a href="connexion">Connexion</a></li>
             <li disabled class="mdl-menu__item"><a href="logout">Déconexion</a></li>
           </ul>
         </div>
@@ -138,14 +141,14 @@ function getCookie(name) {
 <fieldset>
 <!-- Prepended text-->
 <div class="form-group inline">
-  <input class="mdl-textfield__input inline" type="text" placeholder="nom du produit" id="search-field-1" style="width:350px; float:left;">
+  <input class="mdl-textfield__input inline" type="text" placeholder="nom du produit" id="search-field-1" style="width:350px; float:left;" value="{{search.query}}">
   <div class="col-md-4 inline" style="float:left;">
     <div class="input-group">
-      <input id="prix_min" name="prependedtext" class="form-control" placeholder="prix min" type="text" required="" style="width:100px;">
+      <input id="prix_min" name="prependedtext" class="form-control" placeholder="prix min" type="text" required="" style="width:100px;" value="{{search.prix_min}}">
       <span class="input-group-addon"> </span>
-      <input id="prix_max" name="prependedtext" class="form-control" placeholder="prix max" type="text" required="" style="width:100px;">
+      <input id="prix_max" name="prependedtext" class="form-control" placeholder="prix max" type="text" required="" style="width:100px;" value="{{search.prix_max}}">
 
-      <select id="selectCommission" name="selectCommission" class="form-control" style="width:120px; margin-left:20px;height: 40px;">
+      <select id="selectCommission" name="selectCommission" class="form-control" style="width:120px; margin-left:20px;height: 40px;" value="C">
         <option value="0">Trier par</option>
         <option value="C">Prix croissant</option>
         <option value="D">Prix décroissant</option>
@@ -166,7 +169,7 @@ function getCookie(name) {
 
         <!-- END SEARCH -->
         <div class="android-more-section" style="padding-top:10px;">
-          <div class="android-section-title mdl-typography--display-1-color-contrast">Resultats pour : {{query}}</div>
+          <div class="android-section-title mdl-typography--display-1-color-contrast">Resultats pour : {{search.query}}</div>
           <div class="android-card-container mdl-grid">
             
             <!--TEST TEST -->

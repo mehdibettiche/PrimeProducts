@@ -19,7 +19,7 @@ from . import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^signup/$', views.signup, name='signup'),
+    url(r'^signup$', views.signup, name='signup'),
     #url(r'^login/$', views.login, {'template_name': 'login.html'}, name='login'),
     #url(r'^logout/$', views.logout, {'next_page': 'login'}, name='logout'),
 
@@ -34,6 +34,9 @@ urlpatterns = [
     url(r'^categories_listing$', views.categories_listing, name='categories_listing'),
     url(r'^profile$', views.profile, name='profile'),
     url(r'^favourite_list$', views.favourite_list, name='favourite_list'),
-
+    url(r'^contact_form$', views.contact_form, name='contact_form'),
+    url(r'^contact$', views.contact, name='contact'),
+    url(r'^my_comments$', views.my_comments, name='my_comments'),
+    url(r'^connexion$', views.connexion, name='connexion'),
     #url(r'^$', views.post_list, name='post_list'),
 ]

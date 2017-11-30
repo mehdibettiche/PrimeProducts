@@ -11,35 +11,79 @@
     <!-- Page styles -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!--<link rel="stylesheet" href="$$hosted_libs_prefix$$/$$version$$/material.min.css">-->
     <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.css">
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+    <!--<link rel="stylesheet" href="styles.css">-->
     {% load static %}
+    <!--<link rel="stylesheet" href=" {% static "css/materialize.css" %}?v=00008" type="text/css" rel="alternate stylesheet" media="screen,projection">-->
+
     <link rel="stylesheet" href=" {% static "css/styles.css" %}?v=00005" type="text/css">
-    <link rel="stylesheet" href=" {% static "css/bootstrap.css" %}?v=00005" type="text/css">
+    <link rel="stylesheet" href=" {% static "css/bootstrap.css" %}?v=00001" type="text/css">
+
+    <!--<link rel="stylesheet" href=" {% static "css/cssv2/style.css" %}?v=00008">-->
     <link href='//fonts.googleapis.com/css?family=Abel' rel='stylesheet'>
     <link href='//fonts.googleapis.com/css?family=Amaranth' >
+    <!--<link rel="icon" href=" {% static "images/icons/icon.png" %}?v=00008">-->
+    <!--<script src=" {% static "jquery-3.1.1.min.js" %}"></script>-->
+    <!--<script src=" {% static "js/materialize.js" %}?v=00008"></script>
+    <script src=" {% static "js/init.js" %}?v=00008"></script>-->
+    <style>
+    #view-source {
+      position: fixed;
+      display: block;
+      right: 0;
+      bottom: 0;
+      margin-right: 40px;
+      margin-bottom: 40px;
+      z-index: 900;
+    }
     
-<style>
-#view-source {
-  position: fixed;
-  display: block;
-  right: 0;
-  bottom: 0;
-  margin-right: 40px;
-  margin-bottom: 40px;
-  z-index: 900;
+.container {
+    padding-top: 40px;
 }
+.single {
+padding: 30px 15px;
+margin-top: 40px;
+background: #fcfcfc;
+border: 1px solid #f0f0f0; }
+.single h3.side-title {
+margin: 0;
+margin-bottom: 10px;
+padding: 0;
+font-size: 20px;
+color: #333;
+text-transform: uppercase; }
+.single h3.side-title:after {
+content: '';
+width: 60px;
+height: 1px;
+background: #ff173c;
+display: block;
+margin-top: 6px; }
+
+.single ul {
+margin-bottom: 0; }
+.single li a {
+color: #666;
+font-size: 14px;
+text-transform: uppercase;
+border-bottom: 1px solid #f0f0f0;
+line-height: 40px;
+display: block;
+text-decoration: none; }
+.single li a:hover {
+color: #ff173c; }
+.single li:last-child a {
+border-bottom: 0; }
 </style>
     <script>
     $(document).ready(function() {
           $('#search_btn').click(function(){
-            //console.log($("#search-field-1").val());
-            if($("#search-field-1").val() == '')
-            {
-              console.log("empty");
-
-            }else{
+            ville_select
+            //alert("search for the database and leave me alone" + $("#search-field-1").val() + $("#trier_select").val() + $("#prix_select").val() + $("#ville_select").val());
             $.ajax({
                   headers: {
                       'Content-Type':'application/json',
@@ -47,17 +91,38 @@
                   },
                   url: 'search_query',
                   type: 'POST',
-                  data: JSON.stringify({'query': $("#search-field-1").val(), 'trier': $("#selectCommission").val(), 'prix_min': $("#prix_min").val(), 'prix_max': $("#prix_max").val()}),
+                  data: JSON.stringify({'query': $("#search-field-1").val(), 'trier': $("#trier_select").val(), 'prix': $("#prix_select").val(), 'ville':$("#ville_select").val()}),
                   success: function(json) {
                     alert('success');
-                    //window.location('product_details');
+                    //$('.overlay').hide();
                   },
                   error: function(){
                     alert('fail')
                   }
+
               })
-            }         
+         
+         //else alert('Aucun corpus selectionné');
         });
+
+          $(function() {
+            $('#login-form-link').click(function(e) {
+            $("#login-form").delay(100).fadeIn(100);
+            $("#register-form").fadeOut(100);
+            $('#register-form-link').removeClass('active');
+            $(this).addClass('active');
+            e.preventDefault();
+          });
+          $('#register-form-link').click(function(e) {
+            $("#register-form").delay(100).fadeIn(100);
+            $("#login-form").fadeOut(100);
+            $('#login-form-link').removeClass('active');
+            $(this).addClass('active');
+            e.preventDefault();
+          });
+
+        });
+
     });
 
 function getCookie(name) {
@@ -122,40 +187,32 @@ function getCookie(name) {
 
       <div class="android-content mdl-layout__content">
         <a name="top"></a>
-        <div class="android-be-together-section mdl-typography--text-center">
-          <div class="logo-font android-slogan">Recherchez votre produit, pas le notre.</div>
-          <div class="logo-font android-sub-slogan">Bienvenue sur votre site.</div>
-          <br>
-          <br>
-          
-<form class="form-horizontal">
-<fieldset>
-<!-- Prepended text-->
-<div class="form-group inline">
-  <input class="mdl-textfield__input inline" type="text" placeholder="nom du produit" id="search-field-1" style="width:350px; float:left;">
-  <div class="col-md-4 inline" style="float:left;">
-    <div class="input-group">
-      <input id="prix_min" name="prependedtext" class="form-control" placeholder="prix min" type="text" required="" style="width:100px;">
-      <span class="input-group-addon"> </span>
-      <input id="prix_max" name="prependedtext" class="form-control" placeholder="prix max" type="text" required="" style="width:100px;">
-
-      <select id="selectCommission" name="selectCommission" class="form-control" style="width:120px; margin-left:20px;height: 40px;">
-        <option value="0">Trier par</option>
-        <option value="C">Prix croissant</option>
-        <option value="D">Prix décroissant</option>
-        <option value="N">Notes utilisateurs</option>
-      </select>
-
-      <label class="mdl-button mdl-js-button mdl-button--icon" data-upgraded=",MaterialButton" id="search_btn" style="margin-left:20px;margin-top: 3px;">
-        <a href="result_page"><i class="material-icons">search</i></a>
-      </label>
-    </div>
-  </div>
+        
+<!--<div class="container" style="width: 1000px;height: 500px;margin-left: 22%;">-->
+<div class="container">
+<div class="row">
+<div class="col-sm-8">
+  <!-- Category -->
+  <div class="single category">
+    <h3 class="side-title">Liste des commentaires</h3>
+    <ul class="list-unstyled">
+      {% for c in comments %}
+      <li><a href="" title="">{{c.produit}} <span class="pull-right">{{c.date}}</span></a></li>
+      {% endfor %}
+      <!--<li><a href="" title="">Technology <span class="pull-right">13</span></a></li>
+      <li><a href="" title="">Web <span class="pull-right">13</span></a></li>
+      <li><a href="" title="">Ecommerce <span class="pull-right">13</span></a></li>
+      <li><a href="" title="">Wordpress <span class="pull-right">13</span></a></li>
+      <li><a href="" title="">Android <span class="pull-right">13</span></a></li>
+      <li><a href="" title="">IOS <span class="pull-right">13</span></a></li>
+      <li><a href="" title="">Windows <span class="pull-right">13</span></a></li>-->
+    </ul>
+   </div>
+</div> 
 </div>
+</div>      
+<!--</div>-->
 
-</fieldset>
-</form>
-        </div>
 
         <footer class="android-footer mdl-mega-footer">
           <div class="mdl-mega-footer--top-section">
@@ -176,7 +233,8 @@ function getCookie(name) {
         </footer>
       </div>
     </div>
-    
+    <!--<a href="https://github.com/google/material-design-lite/blob/mdl-1.x/templates/android-dot-com/" target="_blank" id="view-source" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">View Source</a>-->
+    <!--<script src="$$hosted_libs_prefix$$/$$version$$/material.min.js"></script>-->
     <script src="https://storage.googleapis.com/code.getmdl.io/1.0.4/material.min.js"></script>
     {% block footer %}
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
