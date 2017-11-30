@@ -29,3 +29,9 @@ Don't forget to watch/star/fork the repository !
 
 * Top right button View
 ![Footer View](https://github.com/mehdibettiche/PrimeProducts/blob/master/Screenshots/6.png)
+
+* User account View
+![Footer View](https://github.com/mehdibettiche/PrimeProducts/blob/master/Screenshots/8.png)
+
+* User favourite list View
+![Footer View](https://github.com/mehdibettiche/PrimeProducts/blob/master/Screenshots/9.png)
