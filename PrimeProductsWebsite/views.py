@@ -27,11 +27,19 @@ def signup(request):
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})
 '''
+
 def index(request):
     return render(request, 'index.html')
 
 def signup(request):
     return render(request, 'signup_login.html')
+
+def categories_listing(request):
+    q = []
+    for x in range(1,20):
+        categorie = {'categorie': 'Alimentaire','number_of_products': 100+x}
+        q.append(categorie)
+    return render(request, 'categories_listing.html', {'categories':q})
 
 @csrf_exempt 
 def search_query(request):
@@ -69,7 +77,7 @@ def product_details(request):
 
     c = []
     for x in range(1,10):
-        reviews = {'user_id':x,'username': 'testtest','image': 'product-testing.png','review':'this thing is not okay it is somehow really bad','stars':0+x}
+        reviews = {'user_id':x,'date':'01-01-0001 - 00:00','username': 'testtest','image': 'product-testing.png','review':'this thing is not okay it is somehow really bad','stars':0+x}
         c.append(reviews)
 
     return render(request, 'product_details.html', {'product_details' : q, 'reviews':c})

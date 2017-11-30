@@ -30,5 +30,7 @@ urlpatterns = [
     url(r'^product_details$', views.product_details, name='product_details'),
     url(r'^show_product_details$', views.show_product_details, name='show_product_details'),
 
+    url(r'^categories_listing$', views.categories_listing, name='categories_listing'),
+
     #url(r'^$', views.post_list, name='post_list'),
 ]
