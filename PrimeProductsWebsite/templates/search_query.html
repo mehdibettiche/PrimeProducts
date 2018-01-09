@@ -8,28 +8,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <title>PrimeProducts</title>
 
-    <!-- Page styles -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <!--<link rel="stylesheet" href="$$hosted_libs_prefix$$/$$version$$/material.min.css">-->
     <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.css">
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 
-    <!--<link rel="stylesheet" href="styles.css">-->
     {% load static %}
-    <!--<link rel="stylesheet" href=" {% static "css/materialize.css" %}?v=00008" type="text/css" rel="alternate stylesheet" media="screen,projection">-->
-
+    
     <link rel="stylesheet" href=" {% static "css/styles.css" %}?v=00005" type="text/css">
     <link rel="stylesheet" href=" {% static "css/bootstrap.css" %}?v=00005" type="text/css">
-
-    <!--<link rel="stylesheet" href=" {% static "css/cssv2/style.css" %}?v=00008">-->
     <link href='//fonts.googleapis.com/css?family=Abel' rel='stylesheet'>
     <link href='//fonts.googleapis.com/css?family=Amaranth' >
-    <!--<link rel="icon" href=" {% static "images/icons/icon.png" %}?v=00008">-->
-    <!--<script src=" {% static "jquery-3.1.1.min.js" %}"></script>-->
-    <!--<script src=" {% static "js/materialize.js" %}?v=00008"></script>
-    <script src=" {% static "js/init.js" %}?v=00008"></script>-->
+    
     <style>
     #view-source {
       position: fixed;
@@ -48,7 +39,6 @@
           console.log(par);
           $("#selectCommission").val(par.trier);
           $('#search_btn').click(function(){
-            //console.log($("#search-field-1").val());
             if($("#search-field-1").val() == '')
             {
               console.log("empty");
@@ -63,11 +53,8 @@
                   type: 'POST',
                   data: JSON.stringify({'query': $("#search-field-1").val(), 'trier': $("#selectCommission").val(), 'prix_min': $("#prix_min").val(), 'prix_max': $("#prix_max").val()}),
                   success: function(json) {
-                    alert('success');
-                    //window.location('product_details');
                   },
                   error: function(){
-                    alert('fail')
                   }
               })
             }         
@@ -102,29 +89,28 @@ function getCookie(name) {
           <div class="android-navigation-container">
             <nav class="android-navigation mdl-navigation">
               <nav class="android-navigation mdl-navigation">
-              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="accueil">Accueil</a>
-              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="categories_listing">Categories</a>
-              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="contact">Contact</a>
-              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="connexion">Connexion</a>
+              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="{% url 'accueil' %}">Accueil</a>
+              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="{% url 'categories_listing' %}">Categories</a>
+              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="{% url 'contact' %}">Contact</a>
+              {% if user.is_authenticated %}
+              <a href="{% url 'logout' %}" class="mdl-navigation__link mdl-typography--text-uppercase">Déconnexion</a>
+              {% else %}
+                <a href="{% url 'login' %}" class="mdl-navigation__link mdl-typography--text-uppercase">Connexion</a> 
+              {% endif %}
             </nav>
             </nav>
           </div>
           <span class="android-mobile-title mdl-layout-title">
             <img class="android-logo-image" src="/static/images/prime-logo.png">
           </span>
-          <button class="android-more-button mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="more-button">
-            <i class="material-icons">more_vert</i>
-          </button>
-          <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="more-button">
-            <li class="mdl-menu__item"><a href="connexion">Connexion</a></li>
-            <li disabled class="mdl-menu__item"><a href="logout">Déconexion</a></li>
-          </ul>
+          
         </div>
       </div>
 
+      {% if user.is_authenticated %}
       <div class="android-drawer mdl-layout__drawer">
         <span>
-          <img src="/static/images/alphabet/A.png" style="width:240px">
+          <img src="/static/images/alphabet/{{ user.username|make_list|first }}.png" style="width:240px">
         </span>
         <nav class="mdl-navigation">
           <a class="mdl-navigation__link" href="profile">Mon profil</a>
@@ -133,51 +119,47 @@ function getCookie(name) {
           <a class="mdl-navigation__link" href="contact_form">Contacter le site</a>
         </nav>
       </div>
+      {% endif %}
 
       <div class="android-content mdl-layout__content">
         <a name="top"></a>
         <div class="mdl-typography--text-center" style="background:#f9f9f9;padding-top: 20px;">
-<form class="form-horizontal">
-<fieldset>
-<!-- Prepended text-->
-<div class="form-group inline">
-  <input class="mdl-textfield__input inline" type="text" placeholder="nom du produit" id="search-field-1" style="width:350px; float:left;" value="{{search.query}}">
-  <div class="col-md-4 inline" style="float:left;">
-    <div class="input-group">
-      <input id="prix_min" name="prependedtext" class="form-control" placeholder="prix min" type="text" required="" style="width:100px;" value="{{search.prix_min}}">
-      <span class="input-group-addon"> </span>
-      <input id="prix_max" name="prependedtext" class="form-control" placeholder="prix max" type="text" required="" style="width:100px;" value="{{search.prix_max}}">
+          <form class="form-horizontal" method="post" action="{% url 'search_query' %}">
+            <fieldset>
+            <div class="form-group inline">
+              
+              <div class="col-md-4 inline" style="float:left;">
+                <div class="input-group">
+                  <input class="mdl-textfield__input inline" name="produit" type="text" placeholder="nom du produit" id="search-field-1" style="width:150px; float:left; margin-right: 20px;" required="">
+                  <input id="prix_min" name="min" class="form-control" placeholder="prix min" type="text" style="width:100px;">
+                  <span class="input-group-addon"> </span>
+                  <input id="prix_max" name="max" class="form-control" placeholder="prix max" type="text" style="width:100px;">
 
-      <select id="selectCommission" name="selectCommission" class="form-control" style="width:120px; margin-left:20px;height: 40px;" value="C">
-        <option value="0">Trier par</option>
-        <option value="C">Prix croissant</option>
-        <option value="D">Prix décroissant</option>
-        <option value="N">Notes utilisateurs</option>
-      </select>
-
-      <label class="mdl-button mdl-js-button mdl-button--icon" data-upgraded=",MaterialButton" id="search_btn" style="margin-left:20px;margin-top: 3px;">
-        <a href="result_page"><i class="material-icons">search</i></a>
-      </label>
-    </div>
-  </div>
-</div>
-
-</fieldset>
-</form>        
+                  <select id="selectCommission" name="trie" class="form-control" style="width:120px; margin-left:20px;height: 40px;">
+                    <option value="0">Trier par</option>
+                    <option value="C">Prix croissant</option>
+                    <option value="D">Prix décroissant</option>
+                    <option value="N">Notes utilisateurs</option>
+                  </select>
+                    <input type="submit" class="form-control btn btn-login" style="width:100px;background-color:#59B2E0;margin-left:5px;color:white" value="Rechercher"></input>
+                </div>
+              </div>
+            </div>
+            </fieldset>
+          </form>      
 </div>
           
 
-        <!-- END SEARCH -->
         <div class="android-more-section" style="padding-top:10px;">
           <div class="android-section-title mdl-typography--display-1-color-contrast">Resultats pour : {{search.query}}</div>
           <div class="android-card-container mdl-grid">
             
-            <!--TEST TEST -->
             {% for p in search_query_result %}
               
                 <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">
                   <div class="mdl-card__media" style="padding: 20px;">
-                    <img src="/static/images/{{p.image}}">
+                     {% load static %}
+                    <img src="{% static "images/ProductImage/"|add:p.image %}" />
                   </div>
                   <div class="mdl-card__title">
                      <h4 class="mdl-card__title-text">{{p.name}}</h4>
@@ -185,24 +167,22 @@ function getCookie(name) {
                   <div class="mdl-card__supporting-text">
                     <span class="mdl-typography--font-light mdl-typography--subhead">{{p.description}}</span>
                     <br>
+                    <span class="mdl-typography--font-light mdl-typography--subhead" style="font-size:12;font-weight: bold;color:green;">Magasin : {{p.supermarket}}</span>
+                    <br>
                     <span class="mdl-typography--font-light mdl-typography--subhead" style="font-size:12;font-weight: bold;color:red;">Prix : {{p.price}}€</span>
                   </div>
                   <div class="mdl-card__actions">
-                     <a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" href="product_details">
+                     <a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" href="{% url "product_details" id=p.id %}">
                        Voir le produit
                        <i class="material-icons">chevron_right</i>
                      </a>
                   </div>
                 </div>
                
-            {% endfor %}
-            <!-- END TEST TEST -->
-            
+            {% endfor %}            
            
           </div>
         </div>
-
-<!-- FOOTER -->
 
         <footer class="android-footer mdl-mega-footer">
           <div class="mdl-mega-footer--top-section">
@@ -223,8 +203,7 @@ function getCookie(name) {
         </footer>
       </div>
     </div>
-    <!--<a href="https://github.com/google/material-design-lite/blob/mdl-1.x/templates/android-dot-com/" target="_blank" id="view-source" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">View Source</a>-->
-    <!--<script src="$$hosted_libs_prefix$$/$$version$$/material.min.js"></script>-->
+    
     <script src="https://storage.googleapis.com/code.getmdl.io/1.0.4/material.min.js"></script>
     {% block footer %}
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>

@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <title>PrimeProducts</title>
 
-    <!-- Page styles -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.css">
@@ -33,67 +32,7 @@
       z-index: 900;
     }
 </style>
-    <script>
-    $(document).ready(function() {
-          $('#search_btn').click(function(){
-            ville_select
-            //alert("search for the database and leave me alone" + $("#search-field-1").val() + $("#trier_select").val() + $("#prix_select").val() + $("#ville_select").val());
-            $.ajax({
-                  headers: {
-                      'Content-Type':'application/json',
-                      'X-CSRFToken': getCookie('csrftoken')
-                  },
-                  url: 'search_query',
-                  type: 'POST',
-                  data: JSON.stringify({'query': $("#search-field-1").val(), 'trier': $("#trier_select").val(), 'prix': $("#prix_select").val(), 'ville':$("#ville_select").val()}),
-                  success: function(json) {
-                    alert('success');
-                    //$('.overlay').hide();
-                  },
-                  error: function(){
-                    alert('fail')
-                  }
-
-              })
-         
-         //else alert('Aucun corpus selectionné');
-        });
-
-          $(function() {
-            $('#login-form-link').click(function(e) {
-            $("#login-form").delay(100).fadeIn(100);
-            $("#register-form").fadeOut(100);
-            $('#register-form-link').removeClass('active');
-            $(this).addClass('active');
-            e.preventDefault();
-          });
-          $('#register-form-link').click(function(e) {
-            $("#register-form").delay(100).fadeIn(100);
-            $("#login-form").fadeOut(100);
-            $('#login-form-link').removeClass('active');
-            $(this).addClass('active');
-            e.preventDefault();
-          });
-
-        });
-
-    });
-
-function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie != '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
-            if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-    </script>
+    
   </head>
 <body>
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
@@ -110,26 +49,25 @@ function getCookie(name) {
               <a class="mdl-navigation__link mdl-typography--text-uppercase" href="accueil">Accueil</a>
               <a class="mdl-navigation__link mdl-typography--text-uppercase" href="categories_listing">Categories</a>
               <a class="mdl-navigation__link mdl-typography--text-uppercase" href="contact">Contact</a>
-              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="connexion">Connexion</a>
+              {% if user.is_authenticated %}
+              <a href="{% url 'logout' %}" class="mdl-navigation__link mdl-typography--text-uppercase">Déconnexion</a>
+              {% else %}
+                <a href="{% url 'login' %}" class="mdl-navigation__link mdl-typography--text-uppercase">Connexion</a> 
+              {% endif %}
             </nav>
             </nav>
           </div>
           <span class="android-mobile-title mdl-layout-title">
             <img class="android-logo-image" src="/static/images/prime-logo.png">
           </span>
-          <button class="android-more-button mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="more-button">
-            <i class="material-icons">more_vert</i>
-          </button>
-          <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="more-button">
-            <li class="mdl-menu__item"><a href="connexion">Connexion</a></li>
-            <li disabled class="mdl-menu__item"><a href="logout">Déconexion</a></li>
-          </ul>
+          
         </div>
       </div>
 
+      {% if user.is_authenticated %}
       <div class="android-drawer mdl-layout__drawer">
         <span>
-          <img src="/static/images/alphabet/A.png" style="width:240px">
+          <img src="/static/images/alphabet/{{ user.username|make_list|first }}.png" style="width:240px">
         </span>
         <nav class="mdl-navigation">
           <a class="mdl-navigation__link" href="profile">Mon profil</a>
@@ -138,6 +76,7 @@ function getCookie(name) {
           <a class="mdl-navigation__link" href="contact_form">Contacter le site</a>
         </nav>
       </div>
+      {% endif %}
 
       <div class="android-content mdl-layout__content">
         <a name="top"></a>
@@ -155,13 +94,6 @@ function getCookie(name) {
                 <br>
                 En vous inscrivant, vous pouvez mieux gérer vos achats avec une liste de favoris.
               </p>
-              <!--<p class="mdl-typography--headline mdl-typography--font-thin">
-                Supermarché : 
-              </p>
-              <p class="mdl-typography--headline mdl-typography--font-thin">
-                Prix : 
-              </p>-->
-              
             </div>
           </div>
         </div>
@@ -169,12 +101,19 @@ function getCookie(name) {
 <div class="container" style="padding-top:50px">
   <div class="row">
     <div class="span6">
-            <form>
+            <form method="post" action="{% url 'send_mail' %}" role="form" >
                 <p>Vous pouvez nous contacter en remplissant ce formulaire.</p>
+                {% if user.is_authenticated %}
+                <div class="controls controls-row">
+                    <input id="name" name="name" type="text" class="span3" placeholder="Nom" style="width:200px" value="{{ user.username }}"> 
+                    <input id="email" name="email" type="email" class="span3" placeholder="Adresse mail" style="width:297px" value="{{ user.email }}">
+                </div>
+                {% else %}
                 <div class="controls controls-row">
                     <input id="name" name="name" type="text" class="span3" placeholder="Nom" style="width:200px"> 
                     <input id="email" name="email" type="email" class="span3" placeholder="Adresse mail" style="width:297px">
                 </div>
+                {% endif %}
                 <div class="controls">
                     <textarea id="message" name="message" class="span6" placeholder="Votre message" rows="5" style="width:500px;margin-top:10px"></textarea>
                 </div>

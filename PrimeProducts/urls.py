@@ -20,4 +20,5 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     url(r'^', include('PrimeProductsWebsite.urls')),
+    #url(r'^', include('userAuth.urls')),
 ]

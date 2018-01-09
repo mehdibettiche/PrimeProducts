@@ -56,9 +56,9 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -143,3 +143,5 @@ STATICFILES_DIRS = (
 )
 #print("base dir path", BASE_DIR + '/PrimeProductsWebsite/static/')
 #print("base dir path2", os.path.join(BASE_DIR, '/PrimeProductsWebsite/static/'))
+
+LOGIN_REDIRECT_URL = '/profile'

@@ -1,52 +1,68 @@
-# PrimeProducts 
-Here is a sample of our project, replace the folder "PrimeProducts" we created last time or simply :
-  > * Download the project
-  > * Move to the repository with command line (cd)
-  > * Type "python3 manage.py runserver"
-  > * Open your browser to 127.0.0.1:8000
+
+The implemented functions in views.py are :
+
+  1- def categories_listing : to list all category in DB and the number of products in each one
   
-Don't forget to watch/star/fork the repository !
+  
+  2- def search_query : to show the searching text 'entered by the user' in result page 
+  
+  
+  3- def result_page: show the resulting product corresponding to search query (without giving the cheapest product and not take care of all possible cases of search query)
+  
+  
+  4-def product_details :give information about product (without review ,I'll work on it ..)
+  
+ 
+The keywords for searching until now are :
 
-# Screenshots
+legumes pot bœuf
 
-* Main Page View (accueil)
-![Main Page View](https://github.com/mehdibettiche/PrimeProducts/blob/master/Screenshots/1.png)
+lait bebe
 
-* Register Page 
-![Main Page View](https://github.com/mehdibettiche/PrimeProducts/blob/master/Screenshots/4.png)
+COUCHES BABY TAILLE 3
 
-* Login Page
-![Main Page View](https://github.com/mehdibettiche/PrimeProducts/blob/master/Screenshots/3.png)
+pizza 4 fromages
 
-* Search result page view 
-![Left slider view](https://github.com/mehdibettiche/PrimeProducts/blob/master/Screenshots/7.png)
+#To access into admin page and modify DB :
 
-* Categories listing 
-![Left slider view](https://github.com/mehdibettiche/PrimeProducts/blob/master/Screenshots/2.png)
+http://127.0.0.1:8000/admin/
 
-* Contact list View
-![Footer View](https://github.com/mehdibettiche/PrimeProducts/blob/master/Screenshots/14.png)
+userName :admin
 
-* Left slider view (active when a user is logged in)
-![Left slider view](https://github.com/mehdibettiche/PrimeProducts/blob/master/Screenshots/5.png)
+passWord:admin
 
-* Product page view
-![Left slider view](https://github.com/mehdibettiche/PrimeProducts/blob/master/Screenshots/10.png)
+#Notice :I've used django 2.1
 
-* Product page comments view
-![Left slider view](https://github.com/mehdibettiche/PrimeProducts/blob/master/Screenshots/11.png)
+For every modivication in model.py we have to alter Django about it by :
 
-* Top right button View
-![Footer View](https://github.com/mehdibettiche/PrimeProducts/blob/master/Screenshots/6.png)
 
-* User account View
-![Footer View](https://github.com/mehdibettiche/PrimeProducts/blob/master/Screenshots/8.png)
+1-to let Django know that we have some changes in our model.
 
-* User favourite list View
-![Footer View](https://github.com/mehdibettiche/PrimeProducts/blob/master/Screenshots/9.png)
+ python3 manage.py makemigrations PrimeProductsWebsite
 
-* User comments list View
-![Footer View](https://github.com/mehdibettiche/PrimeProducts/blob/master/Screenshots/12.png)
+2-Django	prepared a migration file for us that we now have to apply to our database.
 
-* User contact View
-![Footer View](https://github.com/mehdibettiche/PrimeProducts/blob/master/Screenshots/13.png)
+$ python3 manage.py migrate PrimeProductsWebsite
+
+#To get into Django' interactive console and try some QuerySet :
+$ python3 manage.py shell
+
+>>> from PrimeProductsWebsite.models import Product
+
+>>> Product.objects.all()
+
+<QuerySet [<Product: Product object (1)>, <Product: Product object (2)>, <Product: Product object (3)>]>
+
+#get one product from Product table
+
+>>> Product.objects.filter(price='12.71')
+
+<QuerySet [<Product: Product object (1)>]>
+
+ Work to be done :
+ 
+ 1- Script for take care of all possible cases of searching query
+ 
+ 2- singup/singIn 
+ 
+ 3- show user profile photo depending on the first letter in user's name

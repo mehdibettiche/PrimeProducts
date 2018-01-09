@@ -9,28 +9,128 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <title>PrimeProducts</title>
 
-    <!-- Page styles -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <!--<link rel="stylesheet" href="$$hosted_libs_prefix$$/$$version$$/material.min.css">-->
     <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.css">
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 
-    <!--<link rel="stylesheet" href="styles.css">-->
     {% load static %}
-    <!--<link rel="stylesheet" href=" {% static "css/materialize.css" %}?v=00008" type="text/css" rel="alternate stylesheet" media="screen,projection">-->
-
     <link rel="stylesheet" href=" {% static "css/styles.css" %}?v=00005" type="text/css">
-
-    <!--<link rel="stylesheet" href=" {% static "css/cssv2/style.css" %}?v=00008">-->
+    <link rel="stylesheet" href=" {% static "css/bootstrap.css" %}?v=00001" type="text/css">
     <link href='//fonts.googleapis.com/css?family=Abel' rel='stylesheet'>
     <link href='//fonts.googleapis.com/css?family=Amaranth' >
-    <!--<link rel="icon" href=" {% static "images/icons/icon.png" %}?v=00008">-->
-    <!--<script src=" {% static "jquery-3.1.1.min.js" %}"></script>-->
-    <!--<script src=" {% static "js/materialize.js" %}?v=00008"></script>
-    <script src=" {% static "js/init.js" %}?v=00008"></script>-->
-    <style>
+    
+<style>
+       #view-source {
+      position: fixed;
+      display: block;
+      right: 0;
+      bottom: 0;
+      margin-right: 40px;
+      margin-bottom: 40px;
+      z-index: 900;
+    }
+    
+.container {
+    padding-top: 90px;
+}
+.panel-login {
+  border-color: #ccc;
+  -webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+  -moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+}
+.panel-login>.panel-heading {
+  color: #00415d;
+  background-color: #fff;
+  border-color: #fff;
+  text-align:center;
+}
+.panel-login>.panel-heading a{
+  text-decoration: none;
+  color: #666;
+  font-weight: bold;
+  font-size: 15px;
+  -webkit-transition: all 0.1s linear;
+  -moz-transition: all 0.1s linear;
+  transition: all 0.1s linear;
+}
+.panel-login>.panel-heading a.active{
+  color: #029f5b;
+  font-size: 18px;
+}
+.panel-login>.panel-heading hr{
+  margin-top: 10px;
+  margin-bottom: 0px;
+  clear: both;
+  border: 0;
+  height: 1px;
+  background-image: -webkit-linear-gradient(left,rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.15),rgba(0, 0, 0, 0));
+  background-image: -moz-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+  background-image: -ms-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+  background-image: -o-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+}
+.panel-login input[type="text"],.panel-login input[type="email"],.panel-login input[type="password"] {
+  height: 45px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  -webkit-transition: all 0.1s linear;
+  -moz-transition: all 0.1s linear;
+  transition: all 0.1s linear;
+}
+.panel-login input:hover,
+.panel-login input:focus {
+  outline:none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  border-color: #ccc;
+}
+.btn-login {
+  background-color: #59B2E0;
+  outline: none;
+  color: #fff;
+  font-size: 14px;
+  height: auto;
+  font-weight: normal;
+  padding: 14px 0;
+  text-transform: uppercase;
+  border-color: #59B2E6;
+}
+.btn-login:hover,
+.btn-login:focus {
+  color: #fff;
+  background-color: #53A3CD;
+  border-color: #53A3CD;
+}
+.forgot-password {
+  text-decoration: underline;
+  color: #888;
+}
+.forgot-password:hover,
+.forgot-password:focus {
+  text-decoration: underline;
+  color: #666;
+}
+
+.btn-register {
+  background-color: #1CB94E;
+  outline: none;
+  color: #fff;
+  font-size: 14px;
+  height: auto;
+  font-weight: normal;
+  padding: 14px 0;
+  text-transform: uppercase;
+  border-color: #1CB94A;
+}
+.btn-register:hover,
+.btn-register:focus {
+  color: #fff;
+  background-color: #1CA347;
+  border-color: #1CA347;
+}
     #view-source {
       position: fixed;
       display: block;
@@ -57,48 +157,19 @@
     </style>
     <script>
     $(document).ready(function() {
-          //var d = JSON.parse("{{search_query_result|safe}}".replace(/'/g, '"'));
-          //console.log('works');
-          //console.log(d);
-          $('#search_btn').click(function(){
-            ville_select
-            //alert("search for the database and leave me alone" + $("#search-field-1").val() + $("#trier_select").val() + $("#prix_select").val() + $("#ville_select").val());
-            $.ajax({
-                  headers: {
-                      'Content-Type':'application/json',
-                      'X-CSRFToken': getCookie('csrftoken')
-                  },
-                  url: 'search_query',
-                  type: 'POST',
-                  data: JSON.stringify({'query': $("#search-field-1").val(), 'trier': $("#trier_select").val(), 'prix': $("#prix_select").val(), 'ville':$("#ville_select").val()}),
-                  success: function(json) {
-                    alert('success');
-                    //$('.overlay').hide();
-                  },
-                  error: function(){
-                    alert('fail')
-                  }
-
-              })
-         
-         //else alert('Aucun corpus selectionné');
-        });
+          $('#cancel').click(function(){
+            var div = document.getElementById('commentaire_div');
+            div.style.visibility="hidden";
+          });
+          $('.star').click(function(){
+            var id = $(this).attr('id');
+            var div = document.getElementById('commentaire_div');
+            div.style.visibility="visible";
+            var div = document.getElementById('etoiles');
+            div.value= id[id.length -1];
+            
+          });
     });
-
-function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie != '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
-            if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
     </script>
   </head>
 <body>
@@ -113,47 +184,48 @@ function getCookie(name) {
           <div class="android-navigation-container">
             <nav class="android-navigation mdl-navigation">
               <nav class="android-navigation mdl-navigation">
-              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="accueil">Accueil</a>
-              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="categories_listing">Categories</a>
-              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="contact">Contact</a>
-              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="connexion">Connexion</a>
+              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="{% url 'accueil' %}">Accueil</a>
+              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="{% url 'categories_listing' %}">Categories</a>
+              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="{% url 'contact' %}">Contact</a>
+              {% if user.is_authenticated %}
+              <a href="{% url 'logout' %}" class="mdl-navigation__link mdl-typography--text-uppercase">Déconnexion</a>
+              {% else %}
+                <a href="{% url 'login' %}" class="mdl-navigation__link mdl-typography--text-uppercase">Connexion</a> 
+                <!--<a href="{% url 'signup' %}"></a>-->
+              {% endif %}
             </nav>
             </nav>
           </div>
           <span class="android-mobile-title mdl-layout-title">
             <img class="android-logo-image" src="/static/images/prime-logo.png">
           </span>
-          <button class="android-more-button mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="more-button">
-            <i class="material-icons">more_vert</i>
-          </button>
-          <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="more-button">
-            <li class="mdl-menu__item"><a href="connexion">Connexion</a></li>
-            <li disabled class="mdl-menu__item"><a href="logout">Déconexion</a></li>
-          </ul>
+          
         </div>
       </div>
 
+      {% if user.is_authenticated %}
       <div class="android-drawer mdl-layout__drawer">
         <span>
-          <img src="/static/images/alphabet/A.png" style="width:240px">
+          <img src="/static/images/alphabet/{{ user.username|make_list|first }}.png" style="width:240px">
         </span>
         <nav class="mdl-navigation">
-          <a class="mdl-navigation__link" href="profile">Mon profil</a>
-          <a class="mdl-navigation__link" href="favourite_list">Ma liste des favoris</a>
-          <a class="mdl-navigation__link" href="my_comments">Mes commentaires</a>
-          <a class="mdl-navigation__link" href="contact_form">Contacter le site</a>
+          <a class="mdl-navigation__link" href="{% url 'profile' %}">Mon profil</a>
+          <a class="mdl-navigation__link" href="{% url 'favourite_list' %}">Ma liste des favoris</a>
+          <a class="mdl-navigation__link" href="{% url 'my_comments' %}">Mes commentaires</a>
+          <a class="mdl-navigation__link" href="{% url 'contact_form' %}">Contacter le site</a>
         </nav>
       </div>
+      {% endif %}
 
       <div class="android-content mdl-layout__content">
         <a name="top"></a>
         
         <div class="android-wear-section" style="height:420px;">
           <div class="android-wear-band" style="position: relative;margin-top:50px;height: 400px;">
-            <div class="mdl-card__media" style="padding: 2px; margin: 30px;display: inline-block;background-color: unset; float:left;margin-top: 80px;">
-              <img src="/static/images/product-testing.png" style="height:250px;width:250px;">
-            </div>
             {% for p in product_details|slice:":1" %}
+            <div class="mdl-card__media" style="padding: 2px; margin: 30px;display: inline-block;background-color: unset; float:left;margin-top: 80px;">
+              <img src="{% static "images/ProductImage/"|add:p.image %}" style="height:250px;width:250px;">
+            </div>
             <div class="android-wear-band-text" style="display:inline;">
               <div class="mdl-typography--display-2 mdl-typography--font-thin" style="margin-top: 80px;">{{p.name}}</div>
               <p class="mdl-typography--headline mdl-typography--font-thin">
@@ -166,7 +238,7 @@ function getCookie(name) {
                 Prix : {{p.price}}
               </p>
               <div class="rating" style="font-size: 22px;">
-                <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                <span class="star" id="star5">☆</span><span  class="star" id="star4">☆</span><span  class="star" id="star3">☆</span><span  class="star" id="star2">☆</span><span  class="star" id="star1">☆</span>
               </div>
               <p>
                 <!--<a class="mdl-typography--font-regular mdl-typography--text-uppercase android-alt-link" href="">
@@ -179,51 +251,60 @@ function getCookie(name) {
         </div>
 
         <div class="android-more-section" style="padding-top:0px;">
-          <!--<div class="android-section-title mdl-typography--display-1-color-contrast">Resultats pour : {{query}}</div>-->
-          <div class="android-card-container mdl-grid">
-            
-            <!--TEST TEST -->
+          
             {% for p in reviews %}
               
                 <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp" style="width: 97%;">
-                  <!--<div class="mdl-card__media" style="padding: 20px; width: 100px; height: 100px;">
-                    <img src="/static/images/{{p.image}}">
-                    <h4 class="mdl-card__title-text">{{p.username}}</h4>
-                    <h4 class="mdl-card__title-text">{{p.username}}</h4>
-                  </div>-->
+                  
                   <div class="" style="padding: 20px; width: 100px; height: 100px;">
-                    <p><img src="/static/images/{{p.image}}" alt="Username" align="left" style="width: 50px; height: 50px;"><p style="font-family: 'Roboto','Helvetica','Arial',sans-serif;font-weight: 400;margin-top: -20px;margin-left: 60px;font-size: 18px;width: 600px;">{{p.username}} - {{p.stars}} stars - {{p.date}}</p><p style="font-family: 'Roboto','Helvetica','Arial',sans-serif;font-weight: 400;margin-top: -20px;margin-left: 60px;width: 600px;">{{p.review}}</p>
-                    <!--<img src="/static/images/{{p.image}}" style="padding: 20px; width: 100px; height: 100px;display:inline-block;">
-                    <h4 class="" style="display:inline-block;">{{p.username}}</h4>
-                    <h4 class="" style="display:inline-block;">{{p.username}}</h4>-->
+                    <p><img src="/static/images/alphabet/{{p.image}}" alt="Username" align="left" style="width: 50px; height: 50px;"><p style="font-family: 'Roboto','Helvetica','Arial',sans-serif;font-weight: 400;margin-top: -20px;margin-left: 60px;width: 600px;">Commentaire de : <span style="font-style:italic">{{p.name}}</span><br>Note : {{p.stars}} stars<br>Commenté le : {{p.date}}</p><p style="font-family: 'Roboto','Helvetica','Arial',sans-serif;font-weight: 400;margin-top: 20px;margin-left: 80px;width: 600px;font-style: italic;"> "{{p.review}}"</p>
+                    
                   </div>
-                  <div class="rating">
-                    <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                  </div>
-                  <!--<div class="mdl-card__title" style="display:inline-block">
-                     <h4 class="mdl-card__title-text">{{p.username}}</h4>
-                  </div>
-                  <div class="mdl-card__supporting-text" style="display:inline-block">
-                    <span class="mdl-typography--font-light mdl-typography--subhead">{{p.review}}</span>
-                    <br>
-                    <span class="mdl-typography--font-light mdl-typography--subhead" style="font-size:12;font-weight: bold;color:red;">Prix : {{p.star}}€</span>
-                  </div>
-                  <div class="mdl-card__actions">
-                     <a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" href="product_details">
-                       Voir le produit
-                       <i class="material-icons">chevron_right</i>
-                     </a>
-                  </div>-->
+                  
                 </div>
                
             {% endfor %}
-            <!-- END TEST TEST -->
-            
            
           </div>
         </div>
 
-<!-- FOOTER -->
+<div id="commentaire_div" style="position: absolute; z-index: 1999; background-color: rgba(255, 255, 255, 0.9); height: 100%; width: 100%;visibility:hidden;">
+          <div  style="position:absolute;z-index:2000;top:100px;background: white;left:170px">
+            <div class="" style="width: 97%;height: 500px;">
+                  <form id="login-form" method="post" action="{% url 'post_comment' %}" role="form" style=" margin: 20px;">
+                  {% csrf_token %}  
+                  <div class="form-group">
+                    {% if user.is_authenticated %}
+                    <label>Nom</label>
+                    <input id="name" style="width: 200px;" type="text" name="username" tabindex="1" class="form-control" value="{{ user.username }}">
+                    <label>Email</label>
+                    <label id="etoiles_2">Etoiles</label>
+                    <input id="email" style="width: 200px;" type="text" name="email"  tabindex="1" class="form-control" value="{{ user.email }}">
+                    <label id="etoiles_2">Etoiles</label>
+                    <input style="width: 50px;" type="number" min="1" max="5" name="etoiles" id="etoiles" tabindex="1" class="form-control" value="">
+                    {% for p in product_details|slice:":1" %}
+                      <input id="product_name" style="visibility:hidden" type="text" name="product_name" tabindex="1" class="" value="{{p.name}}">
+                    {% endfor %}
+                    {% endif %}
+                    <br>
+                    <label>Entrez votre commentaire</label>
+                    <input type="text" name="commentaire" id="commentaire" tabindex="1" class="form-control" value="" style="width: 960px;
+    height: 100px;">
+                  </div>
+                  
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-sm-6 col-sm-offset-3" style="margin-left:25%">
+                        <button name="login-submit" id="comment-submit" tabindex="4" class="form-control btn btn-login" value="Commenter">Commenter</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <button id="cancel" style="margin-top:5px; width:100px;    margin-left: 45%;" class="btn btn-login">Cancel</button>
+                  </div>
+                </div>
+          
+</div>            
 
         <footer class="android-footer mdl-mega-footer">
           <div class="mdl-mega-footer--top-section">
@@ -244,8 +325,7 @@ function getCookie(name) {
         </footer>
       </div>
     </div>
-    <!--<a href="https://github.com/google/material-design-lite/blob/mdl-1.x/templates/android-dot-com/" target="_blank" id="view-source" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">View Source</a>-->
-    <!--<script src="$$hosted_libs_prefix$$/$$version$$/material.min.js"></script>-->
+    
     <script src="https://storage.googleapis.com/code.getmdl.io/1.0.4/material.min.js"></script>
     {% block footer %}
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>

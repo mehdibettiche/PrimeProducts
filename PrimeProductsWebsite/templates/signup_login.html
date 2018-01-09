@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <title>PrimeProducts</title>
 
-    <!-- Page styles -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.css">
@@ -136,30 +135,7 @@
 </style>
     <script>
     $(document).ready(function() {
-          $('#search_btn').click(function(){
-            ville_select
-            //alert("search for the database and leave me alone" + $("#search-field-1").val() + $("#trier_select").val() + $("#prix_select").val() + $("#ville_select").val());
-            $.ajax({
-                  headers: {
-                      'Content-Type':'application/json',
-                      'X-CSRFToken': getCookie('csrftoken')
-                  },
-                  url: 'search_query',
-                  type: 'POST',
-                  data: JSON.stringify({'query': $("#search-field-1").val(), 'trier': $("#trier_select").val(), 'prix': $("#prix_select").val(), 'ville':$("#ville_select").val()}),
-                  success: function(json) {
-                    alert('success');
-                    //$('.overlay').hide();
-                  },
-                  error: function(){
-                    alert('fail')
-                  }
-
-              })
-         
-         //else alert('Aucun corpus selectionné');
-        });
-
+          
           $(function() {
             $('#login-form-link').click(function(e) {
             $("#login-form").delay(100).fadeIn(100);
@@ -179,21 +155,6 @@
         });
 
     });
-
-function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie != '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
-            if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
     </script>
   </head>
 <body>
@@ -208,37 +169,37 @@ function getCookie(name) {
           <div class="android-navigation-container">
             <nav class="android-navigation mdl-navigation">
               <nav class="android-navigation mdl-navigation">
-              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="accueil">Accueil</a>
-              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="categories_listing">Categories</a>
-              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="contact">Contact</a>
-              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="connexion">Connexion</a>
+              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="{% url 'accueil' %}">Accueil</a>
+              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="{% url 'categories_listing' %}">Categories</a>
+              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="{% url 'contact' %}">Contact</a>
+              {% if user.is_authenticated %}
+              <a href="{% url 'logout' %}" class="mdl-navigation__link mdl-typography--text-uppercase">Déconnexion</a>
+              {% else %}
+                <a href="{% url 'login' %}" class="mdl-navigation__link mdl-typography--text-uppercase">Connexion</a> 
+              {% endif %}
             </nav>
             </nav>
           </div>
           <span class="android-mobile-title mdl-layout-title">
             <img class="android-logo-image" src="/static/images/prime-logo.png">
           </span>
-          <button class="android-more-button mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="more-button">
-            <i class="material-icons">more_vert</i>
-          </button>
-          <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="more-button">
-            <li class="mdl-menu__item"><a href="connexion">Connexion</a></li>
-            <li disabled class="mdl-menu__item"><a href="logout">Déconexion</a></li>
-          </ul>
+          
         </div>
       </div>
 
+      {% if user.is_authenticated %}
       <div class="android-drawer mdl-layout__drawer">
         <span>
-          <img src="/static/images/alphabet/A.png" style="width:240px">
+          <img src="/static/images/alphabet/{{ user.username|make_list|first }}.png" style="width:240px">
         </span>
         <nav class="mdl-navigation">
-          <a class="mdl-navigation__link" href="profile">Mon profil</a>
-          <a class="mdl-navigation__link" href="favourite_list">Ma liste des favoris</a>
-          <a class="mdl-navigation__link" href="my_comments">Mes commentaires</a>
-          <a class="mdl-navigation__link" href="contact_form">Contacter le site</a>
+          <a class="mdl-navigation__link" href="{% url 'profile' %}">Mon profil</a>
+          <a class="mdl-navigation__link" href="{% url 'favourite_list' %}">Ma liste des favoris</a>
+          <a class="mdl-navigation__link" href="{% url 'my_comments' %}">Mes commentaires</a>
+          <a class="mdl-navigation__link" href="{% url 'contact_form' %}">Contacter le site</a>
         </nav>
       </div>
+      {% endif %}
 
       <div class="android-content mdl-layout__content">
         <a name="top"></a>
@@ -261,16 +222,16 @@ function getCookie(name) {
           <div class="panel-body">
             <div class="row">
               <div class="col-lg-12">
-                <form id="login-form" action="https://phpoll.com/login/process" method="post" role="form" style="display: block; margin: 20px;">
+                <form id="login-form" method="post" action="{% url 'login' %}" role="form" style="display: block; margin: 20px;">
+                  {% csrf_token %}
+                  {% if form.errors %}
+                    <p style="color: red">Login failed. Please try again.</p>
+                  {% endif %}
                   <div class="form-group">
                     <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
                   </div>
                   <div class="form-group">
                     <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
-                  </div>
-                  <div class="form-group text-center">
-                    <input type="checkbox" tabindex="3" class="" name="remember" id="remember">
-                    <label for="remember"> Remember Me</label>
                   </div>
                   <div class="form-group">
                     <div class="row">
@@ -279,28 +240,24 @@ function getCookie(name) {
                       </div>
                     </div>
                   </div>
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col-lg-12">
-                        <div class="text-center">
-                          <a href="https://phpoll.com/recover" tabindex="5" class="forgot-password">Forgot Password?</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                 </form>
-                <form id="register-form" action="https://phpoll.com/register/process" method="post" role="form" style="display: none; margin: 20px;">
+
+                <form id="register-form" method="post" action="{% url 'signup' %}" role="form" style="display: none; margin: 20px;">
+                  {% csrf_token %}
+                  {% if form.errors %}
+                    <p style="color: red">Registration failed. Please try again.</p>
+                  {% endif %}
                   <div class="form-group">
-                    <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
+                    <input type="text" name="username" id="username_signup" tabindex="1" class="form-control" placeholder="Username" value="">
                   </div>
                   <div class="form-group">
                     <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="">
                   </div>
                   <div class="form-group">
-                    <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+                    <input type="password" name="password1" id="password1" tabindex="2" class="form-control" placeholder="Password">
                   </div>
                   <div class="form-group">
-                    <input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password">
+                    <input type="password" name="password2" id="password2" tabindex="2" class="form-control" placeholder="Confirm Password">
                   </div>
                   <div class="form-group">
                     <div class="row">
